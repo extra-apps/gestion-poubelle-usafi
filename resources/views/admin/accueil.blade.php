@@ -4,6 +4,12 @@
 <head>
     <title>Accueil | admin</title>
     @include('inc.css')
+    <style>
+        .o {
+            color: rgb(185, 21, 171);
+        }
+
+    </style>
 </head>
 
 <body class="animsition">
@@ -32,8 +38,8 @@
                                                 <i class="fa fa-users" style="font-size: 40px"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>{{ '248' }}</h2>
-                                                <span class="font-weight-bold" >Clients</span>
+                                                <h2>{{ $cl }}</h2>
+                                                <span class="font-weight-bold">Clients</span>
                                             </div>
                                         </div>
                                     </div>
@@ -47,8 +53,8 @@
                                                 <i class="fa fa-car" style="font-size: 40px"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>{{ '4' }}</h2>
-                                                <span class="font-weight-bold" >Chauffeurs</span>
+                                                <h2>{{ $ch }}</h2>
+                                                <span class="font-weight-bold">Chauffeurs</span>
                                             </div>
                                         </div>
                                     </div>
@@ -62,8 +68,8 @@
                                                 <i class="fa fa-trash-alt" style="font-size: 40px"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>{{ '300' }}</h2>
-                                                <span class="font-weight-bold" >Poubelles</span>
+                                                <h2>{{ $pb }}</h2>
+                                                <span class="font-weight-bold">Poubelles</span>
                                             </div>
                                         </div>
                                     </div>
@@ -77,8 +83,8 @@
                                                 <i class="fas fa-trash" style="font-size: 40px"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>{{ '4' }}</h2>
-                                                <span class="font-weight-bold" >Poubelles pleines</span>
+                                                <h2>{{ $pbp }}</h2>
+                                                <span class="font-weight-bold">Poubelles pleines</span>
                                             </div>
                                         </div>
                                     </div>
@@ -128,12 +134,18 @@
                         ],
                         defaultFontFamily: "Poppins",
                         datasets: [{
-                            label: "Projets",
-                            borderColor: "rgba(0,0,0,.09)",
+                            label: "Poubelles",
+                            borderColor: "rgba(23, 162, 184,.5)",
                             borderWidth: "1",
-                            backgroundColor: "rgba(0,0,0,.08)",
-                            data: {{ json_encode($tabpr0 = []) }}
-                        }, ]
+                            backgroundColor: "rgba(23, 162, 184,.5)",
+                            data: {{ json_encode($tabpb) }}
+                        }, {
+                            label: "Evacuations",
+                            borderColor: "rgba(185, 21, 171,.2)",
+                            borderWidth: "1",
+                            backgroundColor: "rgba(185, 21, 171,.2)",
+                            data: {{ json_encode($tabeva) }}
+                        }]
                     },
                     options: {
                         legend: {

@@ -20,7 +20,7 @@
                             <div class="col-md-12">
                                 <div class="overview-wrap mb-3">
                                     <h2 class="title-1">Clients <span class="badge badge-info" nb></span></h2>
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modal">
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#modal">
                                         <i class="zmdi zmdi-plus-circle"></i> Ajouter</button>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h4 class="text-white">Nouvel client</h4>
+                    <h4 class="text-white">Nouveau client</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
-                        <button type="submit" class="btn btn-info">
+                        <button type="submit" class="btn btn-outline-info">
                             <span></span>
                             Ajouter
                         </button>
@@ -124,7 +124,7 @@
                                 <td>${e.name}</td>
                                 <td>${e.email}</td>
                                 <td>${e.telephone}</td>
-                                <td>${e.nbpoubelle}</td>
+                                <td class='text-center'>${e.nbpoubelle}</td>
                                 <td>
                                     <button class="btn btn-outline-info" value='${e.id}'>
                                         <i class='fa fa-eye' ></i>

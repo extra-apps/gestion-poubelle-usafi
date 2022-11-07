@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Concession;
+use App\Models\Evacuation;
 use App\Models\Parcelle;
 use App\Models\Plainte;
 use App\Models\PlanAction;
+use App\Models\Poubelle;
 use App\Models\Profil;
 use App\Models\Projet;
 use App\Models\Risque;
@@ -34,18 +36,17 @@ class AdminController extends Controller
 
     public function accueil()
     {
-        // $cp = User::where('user_role', 'chefprojet')->count();
-        // $ep = User::where('user_role', 'equipeprojet')->count();
-        // $pa = PlanAction::count();
-        // $pr = Projet::count();
+        $cl = User::where('user_role', 'client')->count();
+        $ch = User::where('user_role', 'chauffeur')->count();
+        $pb = Poubelle::count();
+        $pbp = Poubelle::count();
 
-        // $tabpro = $tabpl = $tabrisk = [];
-        // foreach (range(1, 12) as $m) {
-        //     array_push($tabpro, Projet::whereMonth('dateajout', $m)->count());
-        //     array_push($tabrisk, Risque::whereMonth('dateajout', $m)->count());
-        //     array_push($tabpl, PlanAction::whereMonth('dateajout', $m)->count());
-        // }
-        return view('admin.accueil');
+        $tabeva = $tabpb = [];
+        foreach (range(1, 12) as $m) {
+            array_push($tabeva, Evacuation::whereMonth('date', $m)->count() );
+            array_push($tabpb,  Poubelle::whereMonth('dateajout', $m)->count());
+        }
+        return view('admin.accueil', compact('cl', 'ch', 'pb', 'pbp', 'tabeva', 'tabpb'));
     }
 
     public function client()
@@ -60,6 +61,7 @@ class AdminController extends Controller
 
     public function poubelle()
     {
-        return view('admin.poubelle');
+        $clients = User::where('user_role', 'client')->orderBy('id', 'desc')->get();
+        return view('admin.poubelle', compact('clients'));
     }
 }

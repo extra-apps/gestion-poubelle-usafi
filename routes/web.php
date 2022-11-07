@@ -17,6 +17,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/app/client', [DataController::class, 'client_a']);
     Route::delete('/app/client', [DataController::class, 'client_d']);
 
+    Route::get('/app/chauffeur', [DataController::class, 'chauffeur'])->name('app.chauffeur');
+    Route::post('/app/chauffeur', [DataController::class, 'chauffeur_a']);
+    Route::delete('/app/chauffeur', [DataController::class, 'chauffeur_d']);
+
+    Route::get('/app/poubelle', [DataController::class, 'poubelle'])->name('app.poubelle');
+    Route::post('/app/poubelle', [DataController::class, 'poubelle_a']);
+    Route::delete('/app/poubelle', [DataController::class, 'poubelle_d']);
+
 
     //======================== ADMIN
     Route::get('/admin', [AdminController::class, 'accueil'])->name('admin.accueil');

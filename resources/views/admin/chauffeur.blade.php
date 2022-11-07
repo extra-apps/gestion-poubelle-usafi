@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    <title>Chauffeur | admin</title>
+    <title>Chaffeur | admin</title>
     @include('inc.css')
 </head>
 
@@ -19,8 +19,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap mb-3">
-                                    <h2 class="title-1">Chauffeurs <span class="badge badge-info" nb></span></h2>
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modal">
+                                    <h2 class="title-1">Chaffeurs <span class="badge badge-info" nb></span></h2>
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#modal">
                                         <i class="zmdi zmdi-plus-circle"></i> Ajouter</button>
                                 </div>
                             </div>
@@ -63,8 +63,8 @@
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header bg-secondary">
-                    <h4 class="text-white">Nouvel enregistrement</h4>
+                <div class="modal-header bg-info">
+                    <h4 class="text-white">Nouveau chaffeur</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -80,16 +80,8 @@
                             <input name="email" required type="email" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="">Role</label>
-                            <input name="role" required class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="">service</label>
-                            <input name="service" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Observation</label>
-                            <textarea name="observation" class="form-control"></textarea>
+                            <label for="">telephone</label>
+                            <input name="telephone" required class="form-control telephone" minlength="10">
                         </div>
                         <div class="form-group">
                             <div id="rep"></div>
@@ -97,7 +89,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
-                        <button type="submit" class="btn btn-secondary">
+                        <button type="submit" class="btn btn-outline-info">
                             <span></span>
                             Ajouter
                         </button>
@@ -107,42 +99,17 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modaldel" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-secondary">
-                    <h4 class="text-white">Suppression</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="f-del">
-                    <div class="modal-body">
-                        Confirmer la suppression ?
-                    </div>
-                    <div class="modal-footer">
-                        <input type="hidden" name="id">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">NON</button>
-                        <button type="submit" class="btn btn-secondary">
-                            <span></span>
-                            OUI
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     @include('inc.js')
-
+    <script src="{{ asset('assets/js/inputmask.js') }}"></script>
     <script>
         $(function() {
+            $(".telephone").inputmask("(999)999999999");
             spin = $('span[spin]');
 
             function getdata() {
                 spin.fadeIn();
                 $.ajax({
-                    url: '{{ route('app.equipeprojet') }}',
+                    url: '{{ route('app.chauffeur') }}',
                     data: '_token={{ csrf_token() }}',
                     success: function(r) {
                         $('span[nb]').html(r.length);
@@ -155,21 +122,16 @@
                                 <td>${i+1}</td>
                                 <td>${e.name}</td>
                                 <td>${e.email}</td>
-                                <td>${e.role1}</td>
-                                <td>${e.service ?? '-'}</td>
-                                <td>${e.observation ?? '-'}</td>
+                                <td>${e.telephone}</td>
                                 <td>
-                                    <button class="btn btn-outline-secondary del" value='${e.id}'>Supprimer</button>
+                                    <button class="btn btn-outline-info" value='${e.id}'>
+                                        <i class='fa fa-eye' ></i>
+                                    </button>
                                 </td>
                             </tr>
                             `;
                         });
                         table.find('tbody').empty().html(str);
-                        $('.del').off('click').click(function() {
-                            var mdl = $('#modaldel');
-                            $('input[name=id]', mdl).val(this.value);
-                            mdl.modal();
-                        })
 
                     },
                     error: function(r) {
@@ -194,14 +156,14 @@
                 rep.slideUp();
 
                 $.ajax({
-                    url: '{{ route('app.equipeprojet') }}',
+                    url: '{{ route('app.chauffeur') }}',
                     type: 'post',
                     data: data + '&_token={{ csrf_token() }}',
                     success: function(r) {
-                        form[0].reset();
                         btn.find('span').removeClass();
                         $(':input', form).attr('disabled', false);
                         if (r.success) {
+                            form[0].reset();
                             rep.removeClass().addClass('alert alert-success').html(r.message)
                                 .slideDown();
                             getdata();
@@ -217,32 +179,7 @@
                     }
                 });
             });
-            $('#f-del').submit(function() {
-                event.preventDefault();
-                var form = $(this);
-                var btn = $(':submit', form)
-                btn.find('span').removeClass().addClass('fa fa-spinner fa-spin');
-                var data = $(form).serialize();
-                $(':input', form).attr('disabled', true);
 
-                $.ajax({
-                    url: '{{ route('app.equipeprojet') }}',
-                    type: 'delete',
-                    data: data + '&_token={{ csrf_token() }}',
-                    success: function(r) {
-                        $('#modaldel').modal('hide');
-                        btn.find('span').removeClass();
-                        $(':input', form).attr('disabled', false);
-                        getdata();
-
-                    },
-                    error: function(r) {
-                        btn.find('span').removeClass();
-                        $(':input', form).attr('disabled', false);
-                        alert("Echec reseau, actualisez cette page");
-                    }
-                });
-            })
         })
     </script>
 

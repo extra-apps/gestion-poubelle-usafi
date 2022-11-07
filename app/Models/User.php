@@ -25,13 +25,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|null $updated_at
  * @property string|null $telephone
  * @property string|null $user_role
- * @property string|null $fonction
- * @property string|null $role1
- * @property string|null $service
- * @property string|null $observation
+ * @property int|null $mustpay
  *
- * @property Collection|Projet[] $projets
- * @property Collection|Risque[] $risques
+ * @property Collection|Poubelle[] $poubelles
  *
  * @package App\Models
  */
@@ -40,6 +36,10 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
+
+    protected $casts = [
+        'mustpay' => 'int'
+    ];
 
     protected $dates = [
         'email_verified_at'
@@ -58,19 +58,11 @@ class User extends Authenticatable
         'remember_token',
         'telephone',
         'user_role',
-        'fonction',
-        'role1',
-        'service',
-        'observation'
+        'mustpay'
     ];
 
-    public function projets()
+    public function poubelles()
     {
-        return $this->hasMany(Projet::class, 'users_id');
-    }
-
-    public function risques()
-    {
-        return $this->belongsToMany(Risque::class, 'users_has_risque', 'users_id');
+        return $this->hasMany(Poubelle::class, 'users_id');
     }
 }
