@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
+use App\Models\Evacuateur;
+use App\Models\Paiement;
 use App\Models\PlanAction;
 use App\Models\Poubelle;
 use App\Models\Projet;
@@ -115,5 +118,54 @@ class DataController extends Controller
     public function poubelle_d()
     {
         User::where(['user_role' => 'client', 'id' =>  request()->id])->delete();
+    }
+
+    public function paiement()
+    {
+        $data = Paiement::orderBy('id', 'desc')->get();
+        $tab = [];
+        foreach ($data as $el) {
+            $e = (object) $el->toArray();
+            $e->numero = num($el->id);
+            $e->client = $el->user->name;
+            $e->etat = 'NORMAL';
+            $e->niveau = rand(10, 100) . '%';
+            $e->montant = "$el->montant $el->devise";
+            $e->date = $el->date->format('d-m-Y');
+            array_push($tab, $e);
+        }
+        return response()->json($tab);
+    }
+
+    public function config()
+    {
+        $conf = (object)[];
+        $conf->compte = (float) request()->compte;
+        $conf->niveau1 = (float) request()->niveau1;
+        $conf->niveau2 = (float) request()->niveau2;
+        $conf->niveau3 = (float) request()->niveau3;
+        $conf->devise = "CDF";
+
+        $cnf = Config::first();
+        if ($cnf) {
+            $cnf->update(['config' => json_encode($conf)]);
+        } else {
+            Config::create(['config' => json_encode($conf)]);
+        }
+        return response()->json(['success' => true, "message" => "La configuration a été enregistrée"]);
+    }
+
+    public function evacuateur()
+    {
+        $idpub = request()->poubelle_id;
+        $idus = request()->users_id;
+
+        $ev = Evacuateur::where([ 'poubelle_id' => $idpub])->first();
+        if ($ev) {
+            $ev->update(['users_id' => $idus]);
+        } else {
+            Evacuateur::create(['users_id' => $idus, 'poubelle_id' => $idpub]);
+        }
+        return response()->json(['success' => true, "message" => "La configuration a été enregistrée"]);
     }
 }

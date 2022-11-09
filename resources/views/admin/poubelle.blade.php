@@ -39,7 +39,7 @@
                                                 <th>N° Poubelle</th>
                                                 <th>Client</th>
                                                 <th>Taille</th>
-                                                <th>Niveau</th>
+                                                <th>Niveau déchets</th>
                                                 <th>Etat</th>
                                                 <th></th>
                                             </tr>
@@ -132,9 +132,9 @@
                                 </td>
                                 <td class='text-center'>${e.etat}</td>
                                 <td>
-                                    <button class="btn btn-outline-info" value='${e.id}'>
+                                    <a href='{{ route('admin.poubelle', ['item' => '']) }}${e.id}' class="btn btn-outline-info">
                                         <i class='fa fa-eye' ></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                             `;

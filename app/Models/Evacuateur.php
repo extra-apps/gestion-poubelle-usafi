@@ -6,14 +6,12 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Evacuation
+ * Class Evacuateur
  * 
  * @property int $id
- * @property Carbon|null $date
  * @property int $poubelle_id
  * @property int $users_id
  * 
@@ -22,9 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Evacuation extends Model
+class Evacuateur extends Model
 {
-	protected $table = 'evacuation';
+	protected $table = 'evacuateur';
 	public $timestamps = false;
 
 	protected $casts = [
@@ -32,12 +30,7 @@ class Evacuation extends Model
 		'users_id' => 'int'
 	];
 
-	protected $dates = [
-		'date'
-	];
-
 	protected $fillable = [
-		'date',
 		'poubelle_id',
 		'users_id'
 	];

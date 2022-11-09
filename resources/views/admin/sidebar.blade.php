@@ -33,6 +33,14 @@
                     <a href="{{ route('admin.poubelle') }}">
                         <i class="fa fa-trash-alt"></i>Poubelles</a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.paiement') }}">
+                        <i class="fa fa-dollar-sign"></i>Paiments</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.config') }}">
+                        <i class="fa fa-cog"></i>Configuration</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -63,6 +71,14 @@
                 <li>
                     <a href="{{ route('admin.poubelle') }}">
                         <i class="fa fa-trash-alt"></i>Poubelles</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.paiement') }}">
+                        <i class="fa fa-dollar-sign"></i>Paiments</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.config') }}">
+                        <i class="fa fa-cog"></i>Configuration</a>
                 </li>
             </ul>
         </nav>

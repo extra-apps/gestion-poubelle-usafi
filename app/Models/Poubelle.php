@@ -24,7 +24,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $dateajout
  * 
  * @property User $user
+ * @property Collection|Evacuateur[] $evacuateurs
  * @property Collection|Evacuation[] $evacuations
+ * @property Collection|Paiement[] $paiements
  *
  * @package App\Models
  */
@@ -58,8 +60,18 @@ class Poubelle extends Model
 		return $this->belongsTo(User::class, 'users_id');
 	}
 
+	public function evacuateurs()
+	{
+		return $this->hasMany(Evacuateur::class);
+	}
+
 	public function evacuations()
 	{
 		return $this->hasMany(Evacuation::class);
+	}
+
+	public function paiements()
+	{
+		return $this->hasMany(Paiement::class);
 	}
 }

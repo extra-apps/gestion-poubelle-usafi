@@ -27,6 +27,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $user_role
  * @property int|null $mustpay
  *
+ * @property Collection|Evacuateur[] $evacuateurs
+ * @property Collection|Evacuation[] $evacuations
  * @property Collection|Poubelle[] $poubelles
  *
  * @package App\Models
@@ -60,6 +62,16 @@ class User extends Authenticatable
         'user_role',
         'mustpay'
     ];
+
+    public function evacuateurs()
+    {
+        return $this->hasMany(Evacuateur::class, 'users_id');
+    }
+
+    public function evacuations()
+    {
+        return $this->hasMany(Evacuation::class, 'users_id');
+    }
 
     public function poubelles()
     {

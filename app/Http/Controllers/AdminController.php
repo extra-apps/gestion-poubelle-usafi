@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Concession;
+use App\Models\Config;
 use App\Models\Evacuation;
 use App\Models\Parcelle;
 use App\Models\Plainte;
@@ -43,7 +44,7 @@ class AdminController extends Controller
 
         $tabeva = $tabpb = [];
         foreach (range(1, 12) as $m) {
-            array_push($tabeva, Evacuation::whereMonth('date', $m)->count() );
+            array_push($tabeva, Evacuation::whereMonth('date', $m)->count());
             array_push($tabpb,  Poubelle::whereMonth('dateajout', $m)->count());
         }
         return view('admin.accueil', compact('cl', 'ch', 'pb', 'pbp', 'tabeva', 'tabpb'));
@@ -61,7 +62,40 @@ class AdminController extends Controller
 
     public function poubelle()
     {
+        $item = request()->item;
+        if ($item) {
+            $poubelle = Poubelle::where('id', $item)->first();
+            if ($poubelle) {
+                $chauffeurs = User::where('user_role', 'chauffeur')->orderBy('id', 'desc')->get();
+                $chauffeur = '-';
+                $idchauf = '';
+                $ev = $poubelle->evacuateurs()->first();
+                if ($ev) {
+                    $chauffeur = $ev->user->name;
+                    $idchauf = $ev->user->id;
+                }
+                return view('admin.poubelle-detail', compact('poubelle', 'chauffeur', 'idchauf', 'chauffeurs'));
+            }
+        }
         $clients = User::where('user_role', 'client')->orderBy('id', 'desc')->get();
         return view('admin.poubelle', compact('clients'));
+    }
+
+    public function paiement()
+    {
+        return view('admin.paiement');
+    }
+
+    public function config()
+    {
+        $conf = Config::first();
+        $conf = json_decode(@$conf->config);
+        $compte = (float) @$conf->compte;
+        $niveau1 = (float) @$conf->niveau1;
+        $niveau2 = (float) @$conf->niveau2;
+        $niveau3 = (float) @$conf->niveau3;
+        $devise = @$conf->devise;
+        $poubelles = Poubelle::orderBy('id', 'desc')->get();
+        return view('admin.config', compact('compte', 'niveau1', 'niveau2', 'niveau3', 'devise', 'poubelles'));
     }
 }

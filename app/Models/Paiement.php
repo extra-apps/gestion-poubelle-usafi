@@ -10,26 +10,26 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Evacuation
+ * Class Paiement
  * 
  * @property int $id
- * @property Carbon|null $date
  * @property int $poubelle_id
- * @property int $users_id
+ * @property Carbon|null $date
+ * @property float|null $montant
+ * @property string|null $devise
  * 
  * @property Poubelle $poubelle
- * @property User $user
  *
  * @package App\Models
  */
-class Evacuation extends Model
+class Paiement extends Model
 {
-	protected $table = 'evacuation';
+	protected $table = 'paiement';
 	public $timestamps = false;
 
 	protected $casts = [
 		'poubelle_id' => 'int',
-		'users_id' => 'int'
+		'montant' => 'float'
 	];
 
 	protected $dates = [
@@ -37,18 +37,14 @@ class Evacuation extends Model
 	];
 
 	protected $fillable = [
-		'date',
 		'poubelle_id',
-		'users_id'
+		'date',
+		'montant',
+		'devise'
 	];
 
 	public function poubelle()
 	{
 		return $this->belongsTo(Poubelle::class);
-	}
-
-	public function user()
-	{
-		return $this->belongsTo(User::class, 'users_id');
 	}
 }

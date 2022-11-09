@@ -25,12 +25,19 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/app/poubelle', [DataController::class, 'poubelle_a']);
     Route::delete('/app/poubelle', [DataController::class, 'poubelle_d']);
 
+    Route::get('/app/paiement', [DataController::class, 'paiement'])->name('app.paiement');
+
+    Route::post('/app/config', [DataController::class, 'config'])->name('app.config');
+    Route::post('/app/evacuateur', [DataController::class, 'evacuateur'])->name('app.evacuateur');
+
 
     //======================== ADMIN
     Route::get('/admin', [AdminController::class, 'accueil'])->name('admin.accueil');
     Route::get('/admin/client', [AdminController::class, 'client'])->name('admin.client');
     Route::get('/admin/chauffeur', [AdminController::class, 'chauffeur'])->name('admin.chauffeur');
     Route::get('/admin/poubelle', [AdminController::class, 'poubelle'])->name('admin.poubelle');
+    Route::get('/admin/paiement', [AdminController::class, 'paiement'])->name('admin.paiement');
+    Route::get('/admin/config', [AdminController::class, 'config'])->name('admin.config');
 });
 
 
