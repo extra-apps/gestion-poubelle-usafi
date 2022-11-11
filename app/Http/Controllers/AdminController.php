@@ -36,18 +36,39 @@ class AdminController extends Controller
     }
 
     public function accueil()
+
     {
+        // foreach (range(1, 12) as $m) {
+        //     $n = rand(1, 30);
+        //     for ($i = 0; $i < $n; $i++) {
+        //         $p = Poubelle::create(['dateajout' => "2022-$m-11", 'users_id' => 18, 'taille' => $n]);
+        //         $mm = rand(1, 5);
+        //         for ($j = 0; $j < $mm; $j++) {
+        //             Evacuation::create(['date' => "2022-$m-11", 'users_id' => 18, 'poubelle_id' => $p->id]);
+        //         }
+        //     }
+        // }
+
+        // foreach (range(1, 12) as $m) {
+        //     User::create(['user_role' => 'chauffeur', 'name' => time(), 'email' => rand(1222,999999999), 'password' => time()]);
+        // }
+
+        // foreach (range(1, 52) as $m) {
+        //     User::create(['user_role' => 'client', 'name' => time(), 'email' => rand(1222,999999999), 'password' => time()]);
+        // }
+
         $cl = User::where('user_role', 'client')->count();
         $ch = User::where('user_role', 'chauffeur')->count();
         $pb = Poubelle::count();
         $pbp = Poubelle::count();
+        $eva = Evacuation::count();
 
         $tabeva = $tabpb = [];
         foreach (range(1, 12) as $m) {
             array_push($tabeva, Evacuation::whereMonth('date', $m)->count());
             array_push($tabpb,  Poubelle::whereMonth('dateajout', $m)->count());
         }
-        return view('admin.accueil', compact('cl', 'ch', 'pb', 'pbp', 'tabeva', 'tabpb'));
+        return view('admin.accueil', compact('cl', 'ch', 'pb', 'pbp', 'tabeva', 'tabpb', 'eva'));
     }
 
     public function client()

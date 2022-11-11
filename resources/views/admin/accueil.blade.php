@@ -83,8 +83,8 @@
                                                 <i class="fas fa-trash" style="font-size: 40px"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>{{ $pbp }}</h2>
-                                                <span class="font-weight-bold">Poubelles pleines</span>
+                                                <h2>{{ $eva }}</h2>
+                                                <span class="font-weight-bold">Evacuations</span>
                                             </div>
                                         </div>
                                     </div>
@@ -95,14 +95,23 @@
                             <div class="col-lg-12">
                                 <div class="au-card recent-report">
                                     <div class="au-card-inner">
-                                        <h3 class="title-2">Statistiques</h3>
+                                        <h3 class="title-2">Statistiques poubelles</h3>
                                         <div class="recent-report__chart">
                                             <canvas id="graph"></canvas>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-lg-12">
+                                <div class="au-card recent-report">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2">Statistiques evacuations</h3>
+                                        <div class="recent-report__chart">
+                                            <canvas id="graph2"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -124,64 +133,107 @@
     <script>
         $(function() {
             var ctx = document.getElementById("graph");
-            if (ctx) {
-                ctx.height = 300;
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout",
-                            "Septembrer", "Octobre", "Novembre", "Decembre"
-                        ],
-                        defaultFontFamily: "Poppins",
-                        datasets: [{
-                            label: "Poubelles",
-                            borderColor: "rgba(23, 162, 184,.5)",
-                            borderWidth: "1",
-                            backgroundColor: "rgba(23, 162, 184,.5)",
-                            data: {{ json_encode($tabpb) }}
-                        }, {
-                            label: "Evacuations",
-                            borderColor: "rgba(185, 21, 171,.2)",
-                            borderWidth: "1",
-                            backgroundColor: "rgba(185, 21, 171,.2)",
-                            data: {{ json_encode($tabeva) }}
-                        }]
-                    },
-                    options: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                fontFamily: 'Poppins'
-                            }
-
-                        },
-                        responsive: true,
-                        tooltips: {
-                            mode: 'index',
-                            intersect: false
-                        },
-                        hover: {
-                            mode: 'nearest',
-                            intersect: true
-                        },
-                        scales: {
-                            xAxes: [{
-                                ticks: {
-                                    fontFamily: "Poppins"
-
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    fontFamily: "Poppins"
-                                }
-                            }]
+            var ctx2 = document.getElementById("graph2");
+            ctx.height = 300;
+            ctx2.height = 300;
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout",
+                        "Septembrer", "Octobre", "Novembre", "Decembre"
+                    ],
+                    defaultFontFamily: "Poppins",
+                    datasets: [{
+                        label: "Poubelles",
+                        borderColor: "rgba(23, 162, 184,.5)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(23, 162, 184,.5)",
+                        data: {{ json_encode($tabpb) }}
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            fontFamily: 'Poppins'
                         }
 
+                    },
+                    responsive: true,
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                fontFamily: "Poppins"
+
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                fontFamily: "Poppins"
+                            }
+                        }]
                     }
-                });
-            }
+
+                }
+            });
+            var myChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout",
+                        "Septembrer", "Octobre", "Novembre", "Decembre"
+                    ],
+                    defaultFontFamily: "Poppins",
+                    datasets: [{
+                        label: "Evacuations",
+                        borderColor: "rgba(185, 21, 171,.2)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(185, 21, 171,.2)",
+                        data: {{ json_encode($tabeva) }}
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            fontFamily: 'Poppins'
+                        }
+
+                    },
+                    responsive: true,
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                fontFamily: "Poppins"
+
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                fontFamily: "Poppins"
+                            }
+                        }]
+                    }
+
+                }
+            });
         })
     </script>
 
