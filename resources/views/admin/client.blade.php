@@ -33,7 +33,7 @@
                                             <tr>
                                                 <th>
                                                     <span spin>
-                                                        <div class="fa fa-spinner fa-spin fa-2x"></div>
+                                                        <div class="fa fa-cog fa-spin text-info"></div>
                                                     </span>
                                                 </th>
                                                 <th>Nom</th>
@@ -126,9 +126,9 @@
                                 <td>${e.telephone}</td>
                                 <td class='text-center'>${e.nbpoubelle}</td>
                                 <td>
-                                    <button class="btn btn-outline-info" value='${e.id}'>
+                                    <a class="btn btn-outline-info" href='{{ route('admin.client', ['item' => '']) }}${e.id}'>
                                         <i class='fa fa-eye' ></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                             `;

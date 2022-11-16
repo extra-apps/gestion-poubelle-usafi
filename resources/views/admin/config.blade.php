@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive table--no-carde m-b-40">
-                                    <table t-data class="table table-borderless table-striped table-info">
+                                    <table t-data class="table table-hover table-borderless table-striped table-info">
                                         <thead>
                                             <tr>
                                                 <td class="2">Ouverture compte</td>
@@ -71,7 +71,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive table--no-carde m-b-40">
-                                    <table t-data class="table table-borderless table-striped table-info">
+                                    <table t-data class="table table-hover table-borderless table-striped table-info">
                                         <thead>
                                             <tr>
                                                 <td></td>

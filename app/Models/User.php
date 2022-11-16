@@ -26,6 +26,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $telephone
  * @property string|null $user_role
  * @property int|null $mustpay
+ * @property string|null $map
  *
  * @property Collection|Evacuateur[] $evacuateurs
  * @property Collection|Evacuation[] $evacuations
@@ -60,7 +61,8 @@ class User extends Authenticatable
         'remember_token',
         'telephone',
         'user_role',
-        'mustpay'
+        'mustpay',
+        'map'
     ];
 
     public function evacuateurs()

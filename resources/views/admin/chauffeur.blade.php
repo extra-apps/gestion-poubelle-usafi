@@ -33,7 +33,7 @@
                                             <tr>
                                                 <th>
                                                     <span spin>
-                                                        <div class="fa fa-spinner fa-spin fa-2x"></div>
+                                                        <div class="fa fa-cog fa-spin text-info"></div>
                                                     </span>
                                                 </th>
                                                 <th>Nom</th>

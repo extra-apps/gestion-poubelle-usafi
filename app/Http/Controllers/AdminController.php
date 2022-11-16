@@ -73,7 +73,19 @@ class AdminController extends Controller
 
     public function client()
     {
+        $item = request()->item;
+        if ($item) {
+            $client = User::where(['user_role' => 'client', 'id' => $item])->first();
+            if ($client) {
+                return view('admin.client-detail', compact('client'));
+            }
+        }
         return view('admin.client');
+    }
+
+    public function client_maj(User $id)
+    {
+        $id->update(['map' => request()->map]);
     }
 
     public function chauffeur()

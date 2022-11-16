@@ -9,7 +9,7 @@
                     <div class="account-wrap">
                         <div class="account-item clearfix js-item-menu">
                             <div class="content">
-                                <a class="js-acc-btn" href="#"> <?= ucfirst('Admin') ?> </a>
+                                <a class="js-acc-btn" href="#"> <?= ucfirst(auth()->user()->user_role) ?> </a>
                             </div>
                             <div class="account-dropdown js-dropdown">
                                 <div class="account-dropdown__footer">

@@ -12,6 +12,7 @@ class AuthController extends Controller
 {
     public function login()
     {
+        completeFlexpayTrans();
         return view('login');
     }
 
@@ -39,18 +40,17 @@ class AuthController extends Controller
         if (Auth::attempt($_d)) {
             $user = Auth::user();
             $role = strtolower($user->user_role);
+            $route = '';
             if ($role == 'admin') {
                 $route = route('admin.accueil');
             }
-            // elseif ($role == 'comptable') {
-            //     $route = route('comptable.accueil');
-            // } elseif ($role == 'secretaire') {
-            //     $route = route('secretaire.souscription');
-            // } elseif ($role == 'client') {
-            //     $route = route('client.accueil');
-            // } else {
-            //     $route =   route('accueil');
-            // }
+            if ($role == 'chauffeur') {
+                $route = route('chauffeur.accueil');
+            }
+            if ($role == 'client') {
+                $route = route('client.accueil');
+            }
+
             return response()->json([
                 'success' => true,
                 'url' => $return ?? $route

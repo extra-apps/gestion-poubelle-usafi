@@ -17,6 +17,23 @@ use Illuminate\Support\Facades\Validator;
 
 class DataController extends Controller
 {
+    public function abonnement()
+    {
+        if (!auth()->check()) {
+            return redirect('/');
+        }
+        if (!auth()->user()->mustpay) {
+            return redirect(route('client.accueil'));
+        }
+
+        $config = Config::first();
+        $config = @json_decode($config->config);
+
+        $montant = @$config->compte;
+        $devise = @$config->devise;
+        return view('abonnement', compact('montant', 'devise'));
+    }
+
     public function client()
     {
         $data = User::where('user_role', 'client')->orderBy('id', 'desc')->get();
@@ -160,7 +177,7 @@ class DataController extends Controller
         $idpub = request()->poubelle_id;
         $idus = request()->users_id;
 
-        $ev = Evacuateur::where([ 'poubelle_id' => $idpub])->first();
+        $ev = Evacuateur::where(['poubelle_id' => $idpub])->first();
         if ($ev) {
             $ev->update(['users_id' => $idus]);
         } else {

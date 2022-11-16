@@ -28,12 +28,12 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive table--no-carde m-b-40">
-                                    <table t-data class="table table-borderless table-striped table-info">
+                                    <table t-data class="table table-hover table-borderless table-striped table-info">
                                         <thead>
                                             <tr>
                                                 <th>
                                                     <span spin>
-                                                        <div class="fa fa-spinner fa-spin fa-2x"></div>
+                                                        <div class="fa fa-cog fa-spin text-info"></div>
                                                     </span>
                                                 </th>
                                                 <th>N° Poubelle</th>
