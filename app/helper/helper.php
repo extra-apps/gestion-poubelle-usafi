@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Aevacuer;
 use App\Models\Flexpay;
 use App\Models\Paiement;
 use App\Models\User;
@@ -68,8 +69,11 @@ function completeFlexpayTrans()
             $payedata = $payedata->paydata;
             if ($payedata->type == 'abonnement') {
                 User::where('id', $payedata->users_id)->update(['mustpay' => 0]);
-                $e->update(['is_saved' => 1]);
+            } else {
+                Paiement::create(['poubelle_id' => $payedata->poubelle_id, 'montant' => $payedata->montant, 'devise' => $payedata->devise, 'date' => now('Africa/Lubumbashi')]);
+                Aevacuer::where(['poubelle_id' => $payedata->poubelle_id])->delete();
             }
+            $e->update(['is_saved' => 1]);
         } else {
             $e->update(['transaction_was_failled' => 1]);
         }

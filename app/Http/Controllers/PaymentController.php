@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aevacuer;
 use App\Models\Config;
 use App\Models\Flexpay;
 use App\Models\Paiement;
+use App\Models\Poubelle;
 use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
@@ -20,39 +22,78 @@ class PaymentController extends Controller
     public function initPayement()
     {
         if (!auth()->check()) return;
+
+        $type = request()->type;
         $user = auth()->user();
         $attr = request()->all();
-        $validator = Validator::make($attr, [
-            'telephone' => 'required|'
-        ]);
 
-        if ($validator->fails()) {
-            return ['success' => false, 'message' => implode(",", $validator->errors()->all())];
+        if ($type != 'poubelle') {
+            $validator = Validator::make($attr, [
+                'telephone' => 'required|'
+            ]);
+            if ($validator->fails()) {
+                return ['success' => false, 'message' => implode(",", $validator->errors()->all())];
+            }
+            $data = $validator->validated();
+            if ($user->mustpay  == 0) return;
+
+            $config = Config::first();
+            $config = @json_decode($config->config);
+            $montant = (float) @$config->compte;
+            $devise = @$config->devise;
+
+            if ($montant == 0) {
+                return ['success' => false, 'message' => "Montant de paiement semble etre invalide."];
+            }
+            $telephone = "243" . $data['telephone'];
+
+            $ref = strtoupper(uniqid('pay-', true));
+            $cb_code = time() . rand(10000, 90000);
+            $_paydata = [
+                'type' => 'abonnement',
+                'devise' => $devise,
+                'montant' => $montant,
+                'telephone' => $telephone,
+                'users_id' => $user->id
+            ];
+        } else {
+            $validator = Validator::make($attr, [
+                'telephone' => 'required|',
+                'type' => 'required|in:poubelle',
+                'poubelle_id' => 'required|exists:poubelle,id',
+            ]);
+            if ($validator->fails()) {
+                return ['success' => false, 'message' => implode(",", $validator->errors()->all())];
+            }
+            $data = $validator->validated();
+            $poubelle = Poubelle::where('id', request()->poubelle_id)->first();
+            $niveau = @$poubelle->niveau;
+            $config = Config::first();
+            $config = @json_decode($config->config);
+            $montant = (float) @$config->$niveau;
+            $devise = @$config->devise;
+
+            $ev = Aevacuer::where(['poubelle_id' => request()->poubelle_id])->first();
+            if (!$ev) {
+                return ['success' => false, 'message' => "Cette poubelle ne necessite pas le paiement pour le moment."];
+            }
+
+            if ($montant == 0) {
+                return ['success' => false, 'message' => "La poubelle semble etre vide! aucun niveau trouvé."];
+            }
+            $telephone = "243" . $data['telephone'];
+
+            $ref = strtoupper(uniqid('pay-', true));
+            $cb_code = time() . rand(10000, 90000);
+            $_paydata = [
+                'type' => $type,
+                'devise' => $devise,
+                'montant' => $montant,
+                'telephone' => $telephone,
+                'users_id' => $user->id,
+                'poubelle_id' => request()->poubelle_id,
+            ];
         }
-        $data = $validator->validated();
-        if ($user->mustpay  == 0) return;
-
-        $config = Config::first();
-        $config = @json_decode($config->config);
-        $montant = (float) @$config->compte;
-        $devise = @$config->devise;
-
-        if ($montant == 0) {
-            return ['success' => false, 'message' => "Montant de paiement semble etre invalide."];
-        }
-
-        $telephone = "243" . $data['telephone'];
-
-        $ref = strtoupper(uniqid('pay-', true));
-        $cb_code = time() . rand(10000, 90000);
-        $_paydata = [
-            'type' => 'abonnement',
-            'devise' => $devise,
-            'montant' => $montant,
-            'telephone' => $telephone,
-            'users_id' => $user->id
-        ];
-
         $rep = startFlexPay($devise, $montant, $telephone, $ref, $cb_code);
 
         $tab =   [];

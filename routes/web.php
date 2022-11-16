@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
     //====================== CLIENT
     Route::get('/client', [ClientControlleur::class, 'accueil'])->name('client.accueil');
+    Route::get('/client/paiement-poubelle', [ClientControlleur::class, 'paiement_poubelle'])->name('client.paiement-poubelle');
 
     Route::get('/abonnement', [DataController::class, 'abonnement'])->name('client.abonnement');
 });

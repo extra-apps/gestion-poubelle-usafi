@@ -36,7 +36,7 @@
                                                 <th>N° Poubelle</th>
                                                 <th>Taille</th>
                                                 <th>Niveau déchets</th>
-                                                <th>Etat</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -46,7 +46,48 @@
                                                     <td>{{ num($el->id) }}</td>
                                                     <td>{{ $el->taille }}</td>
                                                     <td>{{ $el->niveau }}</td>
-                                                    <td>{{ $el->etat }}</td>
+                                                    <td>
+                                                        <a href="{{ route('client.paiement-poubelle', ['item' => $el->id]) }}"
+                                                            class="btn btn-outline-info">
+                                                            <i class="fa fa-dollar"></i> Payer l'évacuation
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="overview-wrap mb-3">
+                                    <h2 class="title-1">Paiements
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive table--no-carde m-b-40">
+                                    <table class="table table-borderless table-striped table-info">
+                                        <thead>
+                                            @php
+                                                $n = 1;
+                                            @endphp
+                                            <tr>
+                                                <th></th>
+                                                <th>N° Poubelle</th>
+                                                <th>Montant</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($paiements as $el)
+                                                <tr>
+                                                    <td>{{ $n++ }}</td>
+                                                    <td>{{ num($el->poubelle->id) }}</td>
+                                                    <td>{{ "$el->montant $el->devise" }}</td>
+                                                    <td>{{ $el->date->format('d-m-Y H:i:s') }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
