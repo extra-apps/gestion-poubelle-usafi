@@ -185,4 +185,35 @@ class DataController extends Controller
         }
         return response()->json(['success' => true, "message" => "La configuration a été enregistrée"]);
     }
+
+    public function capteur()
+    {
+        $p = (int) str_replace('P-', '', request()->poubelle);
+        $cap1 = (int) request()->cap1;
+        $cap2 = (int) request()->cap2;
+        $cap3 = (int) request()->cap3;
+        $niveau = '-';
+        $poubelle = Poubelle::where('id', $p)->first();
+        if ($poubelle) {
+            if (in_array($cap1, [1, 0]) and in_array($cap2, [1, 0]) and in_array($cap3, [1, 0])) {
+                if ($cap1 == $cap2 and $cap2 == $cap3 and $cap3 == 0) {
+                    $niveau = 'niveau1';
+                    $poubelle->update(['niveau' => $niveau, 'cap1' => 0, 'cap2' => 0, 'cap3' => 0]); // vide
+                } else if ($cap1 == $cap2 and $cap2 == $cap3 and $cap3 == 1) {
+                    $niveau = 'niveau3';
+                    $poubelle->update(['niveau' => $niveau, 'cap1' => 1, 'cap2' => 1, 'cap3' => 1]); // full | niveau 3
+                } else if ($cap1 == 1 and $cap2 == 0 and $cap3 == 0) {
+                    $niveau = 'niveau1';
+                    $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // niveau 1
+                } else if ($cap1 == 1 and $cap2 == 1 and $cap3 == 0) {
+                    $niveau = 'niveau2';
+                    $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // niveau 2
+                } else {
+                    $poubelle->update(['niveau' => null, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // erreur
+                }
+            }
+        }
+
+        return response($niveau);
+    }
 }

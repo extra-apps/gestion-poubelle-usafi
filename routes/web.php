@@ -60,3 +60,10 @@ Route::get('/payment-callback/{cb_code?}', [PaymentController::class, 'payCallBa
 
 
 Route::post('/app/connexion', [AuthController::class, 'connexion'])->name('app.connexion');
+
+Route::get('/capteur', [DataController::class, 'capteur'])->name('capteur');
+
+
+Route::get('/simulateur', function () {
+    return view('capteur');
+});
