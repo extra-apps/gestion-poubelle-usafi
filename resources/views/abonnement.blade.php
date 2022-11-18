@@ -50,7 +50,13 @@
                                             <small class="text-muted">Montant : {{ "$montant $devise" }}</small>
                                         </div>
                                         <div id="rep-pay" style="display: none"></div>
-
+                                        <div class="form-group mt-2 d-inline-flex">
+                                            <div class="mt-2 mr-3">
+                                                <input id="ac" type="checkbox" name="accept" class="form-control">
+                                            </div>
+                                            <label for="ac">J'accepte <a href="#" data-toggle="modal"
+                                                    data-target="#modal">les conditions d'utilisation</a> </label>
+                                        </div>
                                         <div class="d-flex justify-content-center">
                                             <button class="btn btn-success mr-3" type="submit">
                                                 <span class="fa fa-money-bill mr-3"></span>
@@ -71,6 +77,24 @@
             </div>
         </div>
 
+    </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h4 class="text-white">Contrat d'utilisation</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {!! $contrat !!}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     @include('inc.js')
@@ -114,7 +138,7 @@
                         btnCheck.show();
                     } else {
                         btn.attr('disabled', false);
-                        var m = res.message.join('<br>')
+                        var m = res.message
                         rep.removeClass().addClass('alert alert-danger').html(m)
                             .slideDown();
                     }

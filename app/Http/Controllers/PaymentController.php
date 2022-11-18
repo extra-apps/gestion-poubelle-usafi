@@ -31,6 +31,9 @@ class PaymentController extends Controller
             $validator = Validator::make($attr, [
                 'telephone' => 'required|'
             ]);
+            if (!request()->accept) {
+                return ['success' => false, 'message' => "Veuillez accepter le contrat d'utilisation"];
+            }
             if ($validator->fails()) {
                 return ['success' => false, 'message' => implode(",", $validator->errors()->all())];
             }

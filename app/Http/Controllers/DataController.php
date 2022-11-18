@@ -32,7 +32,8 @@ class DataController extends Controller
 
         $montant = @$config->compte;
         $devise = @$config->devise;
-        return view('abonnement', compact('montant', 'devise'));
+        $contrat = @file_get_contents('contrat.txt');
+        return view('abonnement', compact('montant', 'devise', 'contrat'));
     }
 
     public function client()
