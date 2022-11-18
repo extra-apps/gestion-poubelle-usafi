@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aevacuer;
 use App\Models\Config;
 use App\Models\Evacuateur;
 use App\Models\Paiement;
@@ -113,14 +114,31 @@ class DataController extends Controller
     // ==============
     public function poubelle()
     {
-        $data = Poubelle::orderBy('id', 'desc')->get();
+        $u = request()->u;
+        if ($u) {
+            $idp = Evacuateur::where('users_id', $u)->pluck('poubelle_id')->all();
+            $data = Poubelle::whereIn('id', $idp)
+                ->orderBy('niveau', 'desc')
+                ->get();
+        } else {
+            $data = Poubelle::orderBy('niveau', 'desc')->get();
+        }
+
         $tab = [];
         foreach ($data as $el) {
             $e = (object) $el->toArray();
             $e->numero = num($el->id);
             $e->client = $el->user->name;
-            $e->etat = 'NORMAL';
-            $e->niveau = rand(10, 100) . '%';
+            if ($el->niveau == 'niveau1') {
+                $n = 10;
+            } else if ($el->niveau == 'niveau2') {
+                $n = 60;
+            } else if ($el->niveau == 'niveau3') {
+                $n = 100;
+            } else {
+                $n = 0;
+            }
+            $e->niveau = $n;
             array_push($tab, $e);
         }
         return response()->json($tab);
@@ -144,11 +162,19 @@ class DataController extends Controller
         foreach ($data as $el) {
             $e = (object) $el->toArray();
             $e->numero = num($el->id);
-            $e->client = $el->user->name;
-            $e->etat = 'NORMAL';
-            $e->niveau = rand(10, 100) . '%';
+            $e->client = $el->poubelle->user->name;
+            if ($el->niveau == 'niveau1') {
+                $n = 10;
+            } else if ($el->niveau == 'niveau2') {
+                $n = 60;
+            } else if ($el->niveau == 'niveau3') {
+                $n = 100;
+            } else {
+                $n = 0;
+            }
+            $e->niveau = $n;
             $e->montant = "$el->montant $el->devise";
-            $e->date = $el->date->format('d-m-Y');
+            $e->date = $el->date->format('d-m-Y H:i:s');
             array_push($tab, $e);
         }
         return response()->json($tab);
@@ -196,20 +222,37 @@ class DataController extends Controller
         $poubelle = Poubelle::where('id', $p)->first();
         if ($poubelle) {
             if (in_array($cap1, [1, 0]) and in_array($cap2, [1, 0]) and in_array($cap3, [1, 0])) {
+                $ae = Aevacuer::where('poubelle_id', $poubelle->id)->first();
+
                 if ($cap1 == $cap2 and $cap2 == $cap3 and $cap3 == 0) {
                     $niveau = 'niveau1';
                     $poubelle->update(['niveau' => $niveau, 'cap1' => 0, 'cap2' => 0, 'cap3' => 0]); // vide
+                    if ($ae) {
+                        $ae->delete();
+                    }
                 } else if ($cap1 == $cap2 and $cap2 == $cap3 and $cap3 == 1) {
                     $niveau = 'niveau3';
                     $poubelle->update(['niveau' => $niveau, 'cap1' => 1, 'cap2' => 1, 'cap3' => 1]); // full | niveau 3
+                    if (!$ae) {
+                        Aevacuer::create(['poubelle_id' => $poubelle->id, 'date_plein' => now('Africa/Lubumbashi')]);
+                    }
                 } else if ($cap1 == 1 and $cap2 == 0 and $cap3 == 0) {
                     $niveau = 'niveau1';
                     $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // niveau 1
+                    if ($ae) {
+                        $ae->delete();
+                    }
                 } else if ($cap1 == 1 and $cap2 == 1 and $cap3 == 0) {
                     $niveau = 'niveau2';
                     $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // niveau 2
+                    if ($ae) {
+                        $ae->delete();
+                    }
                 } else {
                     $poubelle->update(['niveau' => null, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // erreur
+                    if ($ae) {
+                        $ae->delete();
+                    }
                 }
             }
         }

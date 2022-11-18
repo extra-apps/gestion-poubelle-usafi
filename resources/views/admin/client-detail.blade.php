@@ -39,7 +39,7 @@
                                                 <td>{{ $client->name }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Email</th>
+                                                <td>Email</td>
                                                 <td>{{ $client->email }}</td>
                                             </tr>
                                             <tr>
@@ -66,26 +66,46 @@
                                             @php
                                                 $poub = $client
                                                     ->poubelles()
-                                                    ->orderBy('id', 'desc')
+                                                    ->orderBy('niveau', 'desc')
                                                     ->get();
-                                                $n = 1;
+                                                $m = 1;
                                             @endphp
                                             <tr>
                                                 <th></th>
                                                 <th>N° Poubelle</th>
                                                 <th>Taille</th>
                                                 <th>Niveau déchets</th>
-                                                <th>Etat</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($poub as $el)
+                                                @php
+                                                    if ($el->niveau == 'niveau1') {
+                                                        $cl = 'success';
+                                                        $n = 10;
+                                                    } elseif ($el->niveau == 'niveau2') {
+                                                        $cl = 'warning';
+                                                        $n = 60;
+                                                    } elseif ($el->niveau == 'niveau3') {
+                                                        $cl = 'danger';
+                                                        $n = 100;
+                                                    } else {
+                                                        $cl = '';
+                                                        $n = 0;
+                                                    }
+                                                @endphp
                                                 <tr>
-                                                    <td>{{ $n++ }}</td>
+                                                    <td>{{ $m++ }}</td>
                                                     <td>{{ num($el->id) }}</td>
                                                     <td>{{ $el->taille }}</td>
-                                                    <td>{{ $el->niveau }}</td>
-                                                    <td>{{ $el->etat }}</td>
+                                                    <td>
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ $cl }}"
+                                                            role="progressbar" style="width: {{ $n }}%"
+                                                            aria-valuenow="{{ $n }}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                            {{ $n }}%
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evacuateur;
 use App\Models\Poubelle;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,10 +23,22 @@ class ChauffeurControlleur extends Controller
 
     public function accueil()
     {
-        $idp = Evacuateur::where('users_id', auth()->user()->id)->pluck('poubelle_id')->all();
-        $poubelles = Poubelle::whereIn('id', $idp)
-            ->orderBy('id', 'desc')
-            ->get();
-        return view('chauffeur.accueil', compact('poubelles'));
+        $map = [];
+        $u = User::where('user_role', 'client')->get();
+
+        foreach ($u as $e) {
+            $d = (object) [];
+            $d->user = $e->name;
+            $d->map = $e->map;
+            $l = '<p class="p-0 m-0"><i class="fa fa-trash text-success"></i> Poubelles :</p><ul>';
+            foreach ($e->poubelles()->get() as $p) {
+                $l .= "<li>" . num($p->id) . "</li></ul>";
+            }
+            $d->poubelle = $l;
+            if ($e->map) {
+                array_push($map, $d);
+            }
+        }
+        return view('chauffeur.accueil', compact('map'));
     }
 }

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $date
  * @property float|null $montant
  * @property string|null $devise
+ * @property string|null $niveau
  * 
  * @property Poubelle $poubelle
  *
@@ -40,7 +41,8 @@ class Paiement extends Model
 		'poubelle_id',
 		'date',
 		'montant',
-		'devise'
+		'devise',
+		'niveau'
 	];
 
 	public function poubelle()

@@ -28,7 +28,7 @@ class ClientControlleur extends Controller
     {
 
         $poubelles = Poubelle::where('users_id', auth()->user()->id)
-            ->orderBy('id', 'desc')
+            ->orderBy('niveau', 'desc')
             ->get();
 
         $paiements = Paiement::whereIn('poubelle_id', Poubelle::where('users_id', auth()->user()->id)->pluck('id')->all())->orderBy('id', 'desc')->get();

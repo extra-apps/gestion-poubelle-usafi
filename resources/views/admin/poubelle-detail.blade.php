@@ -36,22 +36,38 @@
                                                 <th>Client</th>
                                                 <th>Taille</th>
                                                 <th>Niveau déchets</th>
-                                                <th>Etat</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                if ($poubelle->niveau == 'niveau1') {
+                                                    $cl = 'success';
+                                                    $n = 10;
+                                                } elseif ($poubelle->niveau == 'niveau2') {
+                                                    $cl = 'warning';
+                                                    $n = 60;
+                                                } elseif ($poubelle->niveau == 'niveau3') {
+                                                    $cl = 'danger';
+                                                    $n = 100;
+                                                } else {
+                                                    $cl = '';
+                                                    $n = 0;
+                                                }
+                                            @endphp
                                             <tr>
                                                 <td>{{ num($poubelle->id) }}</td>
                                                 <td>{{ $poubelle->user->name }}</td>
                                                 <td>{{ $poubelle->taille }}</td>
                                                 <td>
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                                        role="progressbar" style="width: 30" aria-valuenow="10"
-                                                        aria-valuemin="0" aria-valuemax="100">
-                                                        30
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ $cl }}"
+                                                            role="progressbar" style="width: {{ $n }}%"
+                                                            aria-valuenow="{{ $n }}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                            {{ $n }}%
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td>{{ $poubelle->etat }}</td>
                                             </tr>
                                         </tbody>
                                     </table>

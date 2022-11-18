@@ -29,7 +29,7 @@
                                     <table class="table table-borderless table-striped table-info">
                                         <thead>
                                             @php
-                                                $n = 1;
+                                                $m = 1;
                                             @endphp
                                             <tr>
                                                 <th></th>
@@ -41,11 +41,35 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($poubelles as $el)
+                                                @php
+                                                    if ($el->niveau == 'niveau1') {
+                                                        $cl = 'success';
+                                                        $n = 10;
+                                                    } elseif ($el->niveau == 'niveau2') {
+                                                        $cl = 'warning';
+                                                        $n = 60;
+                                                    } elseif ($el->niveau == 'niveau3') {
+                                                        $cl = 'danger';
+                                                        $n = 100;
+                                                    } else {
+                                                        $cl = '';
+                                                        $n = 0;
+                                                    }
+                                                @endphp
                                                 <tr>
-                                                    <td>{{ $n++ }}</td>
+                                                    <td>{{ $m++ }}</td>
                                                     <td>{{ num($el->id) }}</td>
                                                     <td>{{ $el->taille }}</td>
-                                                    <td>{{ $el->niveau }}</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ $cl }}"
+                                                                role="progressbar" style="width: {{ $n }}%"
+                                                                aria-valuenow="{{ $n }}" aria-valuemin="0"
+                                                                aria-valuemax="100">
+                                                                {{ $n }}%
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <a href="{{ route('client.paiement-poubelle', ['item' => $el->id]) }}"
                                                             class="btn btn-outline-info">

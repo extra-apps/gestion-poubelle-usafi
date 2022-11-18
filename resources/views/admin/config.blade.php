@@ -228,7 +228,6 @@
                             setTimeout(() => {
                                 location.reload();
                             }, 2000);
-                            getdata();
                         } else {
                             rep.removeClass().addClass('alert alert-danger').html(r.message)
                                 .slideDown();

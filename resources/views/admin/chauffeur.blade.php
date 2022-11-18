@@ -124,9 +124,7 @@
                                 <td>${e.email}</td>
                                 <td>${e.telephone}</td>
                                 <td>
-                                    <button class="btn btn-outline-info" value='${e.id}'>
-                                        <i class='fa fa-eye' ></i>
-                                    </button>
+                                    
                                 </td>
                             </tr>
                             `;

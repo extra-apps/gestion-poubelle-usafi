@@ -26,32 +26,25 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive table--no-carde m-b-40">
-                                    <table class="table table-borderless table-striped table-info">
+                                    <table t-data class="table table-borderless table-striped table-info">
                                         <thead>
                                             @php
                                                 $n = 1;
                                             @endphp
                                             <tr>
-                                                <th></th>
-                                                <th>Client</th>
+                                                <th>
+                                                    <span spin>
+                                                        <div class="fa fa-cog fa-spin text-info"></div>
+                                                    </span>
+                                                </th>
                                                 <th>N° Poubelle</th>
+                                                <th>Client</th>
                                                 <th>Taille</th>
                                                 <th>Niveau déchets</th>
-                                                <th>Etat</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @foreach ($poubelles as $el)
-                                                <tr>
-                                                    <td>{{ $n++ }}</td>
-                                                    <td>{{ $el->user->name }}</td>
-                                                    <td>{{ num($el->id) }}</td>
-                                                    <td>{{ $el->taille }}</td>
-                                                    <td>{{ $el->niveau }}</td>
-                                                    <td>{{ $el->etat }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -101,28 +94,20 @@
     <script>
         $(function() {
 
-            dlat = '{{ @json_decode($client->map)->lat }}';
-            dlon = '{{ @json_decode($client->map)->lon }}';
             MLAT = -11.6697222;
             MLON = 27.483333333333334;
 
+            POUBELLE = {!! json_encode($map) !!};
             initMap();
 
             function initMap() {
-                if (dlat == '') {
-                    lat = MLAT;
-                    lon = MLON;
-                } else {
-                    lat = dlat;
-                    lon = dlon;
-                }
 
                 macarte = null;
                 try {
                     macarte = L.map('map', {
                         fullscreenControl: true,
                         gestureHandling: true
-                    }).setView([lat, lon], 11);
+                    }).setView([MLAT, MLON], 12);
 
                     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                         attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
@@ -130,31 +115,106 @@
                         maxZoom: 20
                     }).addTo(macarte);
 
-                    if (dlat != '') {
-                        marker = L.marker([lat, lon]);
-                        var circ = L.circle([lat, lon], {
-                            weight: 1,
-                            fillOpacity: 0.1,
-                            radius: 300
-                        });
+                    user_markers = new L.FeatureGroup();
+                    var markerL = [];
+
+                    // var popupLocation1 = new L.LatLng(51.5, -0.09);
+                    // var popupLocation2 = new L.LatLng(51.51, -0.08);
+
+                    // var popupContent1 = '<p>Hello world!<br />This is a nice popup.</p>',
+                    //     popup1 = new L.Popup();
+
+                    // popup1.setLatLng(popupLocation1);
+                    // popup1.setContent(popupContent1);
+
+                    // var popupContent2 = '<p>Hello world!<br />This is a nice popup.</p>',
+                    //     popup2 = new L.Popup();
+
+                    // popup2.setLatLng(popupLocation2);
+                    // popup2.setContent(popupContent2);
+                    // macarte.addLayer(popup1).addLayer(popup2);
+                    $(POUBELLE).each(function(i, e) {
+                        var map = JSON.parse(e.map);
+                        var lat = map.lat;
+                        var lon = map.lon;
+                        var marker = L.marker([lat, lon]);
                         var info =
-                            `<p><i class="fa fa-map-marker text-danger"></i> Adresse du client</p>`;
+                            `<p><i class="fa fa-user text-danger"></i> Client : ${e.user}</p>${e.poubelle}`;
                         marker.bindPopup(info).on('mouseover', function(e) {
                             this.openPopup();
                         });
-
-                        user_markers = new L.FeatureGroup();
                         user_markers.addLayer(marker);
-                        user_markers.addLayer(circ);
-                        macarte.addLayer(user_markers);
-                        macarte.setView([lat, lon], 15);
-
-                    }
-
+                        markerL.push(marker);
+                    })
+                    macarte.addLayer(user_markers);
+                    $(markerL).each(function(i, e) {
+                        e.openPopup();
+                    })
                 } catch (error) {
-                    // console.error(error);
+                    console.error(error);
                 }
             }
+
+            spin = $('span[spin]');
+
+            function getdata(show = true) {
+                if (show) {
+                    spin.fadeIn();
+                }
+                $.ajax({
+                    url: '{{ route('app.poubelle') }}',
+                    data: 'u={{ auth()->user()->id }}&_token={{ csrf_token() }}',
+                    success: function(r) {
+                        $('span[nb]').html(r.length);
+                        spin.fadeOut();
+                        var table = $('table[t-data]');
+                        var str = '';
+                        $(r).each(function(i, e) {
+                            if (e.niveau == 10) {
+                                cl = 'success';
+                            } else if (e.niveau == 60) {
+                                cl = 'warning';
+                            } else if (e.niveau == 100) {
+                                cl = 'danger';
+                            } else {
+                                cl = '';
+                            }
+                            str += `
+                            <tr>
+                                <td>${i+1}</td>
+                                <td>${e.numero}</td>
+                                <td>${e.client}</td>
+                                <td>${e.taille}</td>
+                                <td class='text-center'>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-${cl}" role="progressbar" style="width: ${e.niveau}%" aria-valuenow="${e.niveau}" aria-valuemin="0" aria-valuemax="100">
+                                            ${e.niveau}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button value='${e.id}' class="btn btn-outline-info valide">
+                                        <i class='fa fa-check-circle' ></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            `;
+                        });
+                        table.find('tbody').empty().html(str);
+
+                    },
+                    error: function(r) {
+                        spin.fadeOut();
+                        btn.find('span').removeClass();
+                        $(':input', form).attr('disabled', false);
+                        alert("Echec reseau, actualisez cette page");
+                    }
+                });
+            }
+
+            setInterval(() => {
+                getdata(false);
+            }, 3000);
 
         })
     </script>

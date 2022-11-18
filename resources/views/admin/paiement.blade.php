@@ -72,6 +72,15 @@
                         var table = $('table[t-data]');
                         var str = '';
                         $(r).each(function(i, e) {
+                            if (e.niveau == 10) {
+                                cl = 'success';
+                            } else if (e.niveau == 60) {
+                                cl = 'warning';
+                            } else if (e.niveau == 100) {
+                                cl = 'danger';
+                            } else {
+                                cl = '';
+                            }
                             str += `
                             <tr>
                                 <td>${i+1}</td>
@@ -79,8 +88,8 @@
                                 <td>${e.client}</td>
                                 <td class='text-center'>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ${e.niveau}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                                            ${e.niveau}
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-${cl}" role="progressbar" style="width: ${e.niveau}%" aria-valuenow="${e.niveau}" aria-valuemin="0" aria-valuemax="100">
+                                            ${e.niveau}%
                                         </div>
                                     </div>
                                 </td>
@@ -101,7 +110,9 @@
                 });
             }
 
-            getdata();
+            setInterval(() => {
+                getdata();
+            }, 3000);
 
         })
     </script>

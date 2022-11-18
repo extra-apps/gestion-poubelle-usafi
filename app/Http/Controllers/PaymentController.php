@@ -92,6 +92,7 @@ class PaymentController extends Controller
                 'telephone' => $telephone,
                 'users_id' => $user->id,
                 'poubelle_id' => request()->poubelle_id,
+                'niveau' => $poubelle->niveau
             ];
         }
         $rep = startFlexPay($devise, $montant, $telephone, $ref, $cb_code);

@@ -40,7 +40,6 @@
                                                 <th>Client</th>
                                                 <th>Taille</th>
                                                 <th>Niveau déchets</th>
-                                                <th>Etat</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -106,8 +105,10 @@
         $(function() {
             spin = $('span[spin]');
 
-            function getdata() {
-                spin.fadeIn();
+            function getdata(show = true) {
+                if (show) {
+                    spin.fadeIn();
+                }
                 $.ajax({
                     url: '{{ route('app.poubelle') }}',
                     data: '_token={{ csrf_token() }}',
@@ -117,6 +118,15 @@
                         var table = $('table[t-data]');
                         var str = '';
                         $(r).each(function(i, e) {
+                            if (e.niveau == 10) {
+                                cl = 'success';
+                            } else if (e.niveau == 60) {
+                                cl = 'warning';
+                            } else if (e.niveau == 100) {
+                                cl = 'danger';
+                            } else {
+                                cl = '';
+                            }
                             str += `
                             <tr>
                                 <td>${i+1}</td>
@@ -125,12 +135,11 @@
                                 <td>${e.taille}</td>
                                 <td class='text-center'>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ${e.niveau}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                                            ${e.niveau}
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-${cl}" role="progressbar" style="width: ${e.niveau}%" aria-valuenow="${e.niveau}" aria-valuemin="0" aria-valuemax="100">
+                                            ${e.niveau}%
                                         </div>
                                     </div>
                                 </td>
-                                <td class='text-center'>${e.etat}</td>
                                 <td>
                                     <a href='{{ route('admin.poubelle', ['item' => '']) }}${e.id}' class="btn btn-outline-info">
                                         <i class='fa fa-eye' ></i>
@@ -151,7 +160,9 @@
                 });
             }
 
-            getdata();
+            setInterval(() => {
+                getdata(false);
+            }, 3000);
 
             $('#f-add').submit(function() {
                 event.preventDefault();
