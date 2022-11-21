@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
 
     //====================== CHAUFFEUR
     Route::get('/chauffeur', [ChauffeurControlleur::class, 'accueil'])->name('chauffeur.accueil');
+    Route::post('/evacuer', [ChauffeurControlleur::class, 'evacuer'])->name('chauffeur.evacuer');
 
     //====================== CLIENT
     Route::get('/client', [ClientControlleur::class, 'accueil'])->name('client.accueil');

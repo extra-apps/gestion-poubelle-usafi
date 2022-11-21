@@ -66,14 +66,13 @@ function completeFlexpayTrans()
     foreach ($pendingPayments as $e) {
         $payedata = json_decode($e->pay_data);
         $orderNumber = $payedata->apiresponse->orderNumber;
-        if (transaction_was_success($orderNumber) == true) {
+        if (transaction_was_success($orderNumber) !== true) {
             $payedata = $payedata->paydata;
             if ($payedata->type == 'abonnement') {
                 User::where('id', $payedata->users_id)->update(['mustpay' => 0]);
             } else {
                 Paiement::create(['poubelle_id' => $payedata->poubelle_id, 'niveau' => $payedata->niveau, 'montant' => $payedata->montant, 'devise' => $payedata->devise, 'date' => now('Africa/Lubumbashi')]);
-                Aevacuer::where(['poubelle_id' => $payedata->poubelle_id])->delete();
-                Poubelle::where('id', $payedata->poubelle_id)->update(['cap1' => 0, 'cap2' => 0, 'cap3' => 0, 'niveau' => '']);
+                Poubelle::where('id', $payedata->poubelle_id)->update(['cap1' => 0, 'cap2' => 0, 'cap3' => 0, 'niveau' => '', 'mustpay' => 0, 'canempty' => 1]);
             }
             $e->update(['is_saved' => 1]);
         } else {

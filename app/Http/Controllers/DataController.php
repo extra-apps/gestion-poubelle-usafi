@@ -223,37 +223,20 @@ class DataController extends Controller
         $poubelle = Poubelle::where('id', $p)->first();
         if ($poubelle) {
             if (in_array($cap1, [1, 0]) and in_array($cap2, [1, 0]) and in_array($cap3, [1, 0])) {
-                $ae = Aevacuer::where('poubelle_id', $poubelle->id)->first();
-
                 if ($cap1 == $cap2 and $cap2 == $cap3 and $cap3 == 0) {
                     $niveau = 'niveau1';
-                    $poubelle->update(['niveau' => $niveau, 'cap1' => 0, 'cap2' => 0, 'cap3' => 0]); // vide
-                    if ($ae) {
-                        $ae->delete();
-                    }
+                    $poubelle->update(['niveau' => $niveau, 'cap1' => 0, 'cap2' => 0, 'cap3' => 0, 'mustpay' => 0]); // vide
                 } else if ($cap1 == $cap2 and $cap2 == $cap3 and $cap3 == 1) {
                     $niveau = 'niveau3';
-                    $poubelle->update(['niveau' => $niveau, 'cap1' => 1, 'cap2' => 1, 'cap3' => 1]); // full | niveau 3
-                    if (!$ae) {
-                        Aevacuer::create(['poubelle_id' => $poubelle->id, 'date_plein' => now('Africa/Lubumbashi')]);
-                    }
+                    $poubelle->update(['niveau' => $niveau, 'cap1' => 1, 'cap2' => 1, 'cap3' => 1, 'mustpay' => 1]); // full | niveau 3
                 } else if ($cap1 == 1 and $cap2 == 0 and $cap3 == 0) {
                     $niveau = 'niveau1';
-                    $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // niveau 1
-                    if ($ae) {
-                        $ae->delete();
-                    }
+                    $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3, 'mustpay' => 1]); // niveau 1
                 } else if ($cap1 == 1 and $cap2 == 1 and $cap3 == 0) {
                     $niveau = 'niveau2';
-                    $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // niveau 2
-                    if ($ae) {
-                        $ae->delete();
-                    }
+                    $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3, 'mustpay' => 1]); // niveau 2
                 } else {
-                    $poubelle->update(['niveau' => null, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3]); // erreur
-                    if ($ae) {
-                        $ae->delete();
-                    }
+                    $poubelle->update(['niveau' => null, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3, 'mustpay' => 0]); // erreur
                 }
             }
         }

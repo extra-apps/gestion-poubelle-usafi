@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evacuateur;
+use App\Models\Evacuation;
 use App\Models\Poubelle;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,5 +41,21 @@ class ChauffeurControlleur extends Controller
             }
         }
         return view('chauffeur.accueil', compact('map'));
+    }
+
+    public function evacuer()
+    {
+        $poub = Poubelle::where('id', request()->poubelle_id)->first();
+        if (!$poub) {
+            return response()->json(['success' => false, 'message' => 'poubelle ??']);
+        }
+
+        if ($poub->canempty != 1) {
+            return response()->json(['success' => false, 'message' => 'Cette poubelle ne peut etre évacuer pour le moment.']);
+        }
+
+        Evacuation::create(['date' => now('Africa/Lubumbashi'), 'poubelle_id' => $poub->id, 'users_id' => auth()->user()->id]);
+        $poub->update(['canempty' => 0]);
+        return response()->json(['success' => true, 'message' => "Vous venez d'enregistrer l'évacuation de la poubelle " . num($poub->id)]);
     }
 }

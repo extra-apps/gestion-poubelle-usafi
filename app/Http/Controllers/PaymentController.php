@@ -76,8 +76,7 @@ class PaymentController extends Controller
             $montant = (float) @$config->$niveau;
             $devise = @$config->devise;
 
-            $ev = Aevacuer::where(['poubelle_id' => request()->poubelle_id])->first();
-            if (!$ev) {
+            if ($poubelle->mustpay == 0) {
                 return ['success' => false, 'message' => "Cette poubelle ne necessite pas le paiement pour le moment."];
             }
 

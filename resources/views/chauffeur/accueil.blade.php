@@ -78,6 +78,32 @@
         </div>
 
     </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h4 class="text-white">Evacuation de la poubelle</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="f-valide">
+                    <input type="hidden" name="poubelle_id">
+                    <div class="modal-body">
+                        <p>Confirmer l'évacuation de la poubelle <b poub></b> ?</p>
+                        <div id="rep"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">NON</button>
+                        <button type="submit" class="btn btn-outline-info">
+                            <span></span>
+                            OUI
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     @include('inc.js')
     <script src="{{ asset('assets/js/inputmask.js') }}"></script>
@@ -151,11 +177,13 @@
                         e.openPopup();
                     })
                 } catch (error) {
-                    console.error(error);
+                    // console.error(error);
                 }
             }
 
             spin = $('span[spin]');
+            modal = $('#modal');
+            rep = $('#rep', modal);
 
             function getdata(show = true) {
                 if (show) {
@@ -179,6 +207,13 @@
                             } else {
                                 cl = '';
                             }
+
+                            var btn = '';
+                            if (e.canempty == 1) {
+                                btn = `<button numero='${e.numero}' title="Veuillez évacuer cette poubelle" value='${e.id}' class="btn btn-outline-danger valide">
+                                        <i class='fa fa-check-circle' ></i>
+                                    </button>`;
+                            }
                             str += `
                             <tr>
                                 <td>${i+1}</td>
@@ -193,15 +228,18 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button value='${e.id}' class="btn btn-outline-info valide">
-                                        <i class='fa fa-check-circle' ></i>
-                                    </button>
+                                    ${btn}
                                 </td>
                             </tr>
                             `;
                         });
                         table.find('tbody').empty().html(str);
-
+                        $('.valide').off('click').click(function() {
+                            $('input[name=poubelle_id]', modal).val(this.value);
+                            $('b[poub]', modal).html($(this).attr('numero'));
+                            rep.hide();
+                            modal.modal('show');
+                        })
                     },
                     error: function(r) {
                         spin.fadeOut();
@@ -215,6 +253,38 @@
             setInterval(() => {
                 getdata(false);
             }, 3000);
+
+            $('#f-valide').submit(function() {
+                event.preventDefault();
+                var form = $(this);
+                var btn = $(':submit', form)
+                btn.find('span').removeClass().addClass('fa fa-spinner fa-spin');
+                var data = $(form).serialize();
+                $(':input', form).attr('disabled', true);
+                rep.slideUp();
+
+                $.ajax({
+                    url: '{{ route('chauffeur.evacuer') }}',
+                    type: 'post',
+                    data: data + '&_token={{ csrf_token() }}',
+                    success: function(r) {
+                        btn.find('span').removeClass();
+                        $(':input', form).attr('disabled', false);
+                        if (r.success) {
+                            rep.removeClass().addClass('alert alert-success').html(r.message)
+                                .slideDown();
+                        } else {
+                            rep.removeClass().addClass('alert alert-danger').html(r.message)
+                                .slideDown();
+                        }
+                    },
+                    error: function(r) {
+                        btn.find('span').removeClass();
+                        $(':input', form).attr('disabled', false);
+                        alert("Echec reseau, actualisez cette page");
+                    }
+                });
+            });
 
         })
     </script>

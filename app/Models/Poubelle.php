@@ -22,8 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $cap2
  * @property string|null $cap3
  * @property Carbon|null $dateajout
+ * @property int|null $mustpay
+ * @property int|null $canempty
  * 
  * @property User $user
+ * @property Collection|Aevacuer[] $aevacuers
  * @property Collection|Evacuateur[] $evacuateurs
  * @property Collection|Evacuation[] $evacuations
  * @property Collection|Paiement[] $paiements
@@ -37,7 +40,9 @@ class Poubelle extends Model
 
 	protected $casts = [
 		'users_id' => 'int',
-		'etat' => 'int'
+		'etat' => 'int',
+		'mustpay' => 'int',
+		'canempty' => 'int'
 	];
 
 	protected $dates = [
@@ -52,12 +57,19 @@ class Poubelle extends Model
 		'cap1',
 		'cap2',
 		'cap3',
-		'dateajout'
+		'dateajout',
+		'mustpay',
+		'canempty'
 	];
 
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'users_id');
+	}
+
+	public function aevacuers()
+	{
+		return $this->hasMany(Aevacuer::class);
 	}
 
 	public function evacuateurs()
