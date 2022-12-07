@@ -87,7 +87,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-3">
                     {!! $contrat !!}
                 </div>
                 <div class="modal-footer">

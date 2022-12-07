@@ -219,7 +219,8 @@ class DataController extends Controller
         $cap1 = (int) request()->cap1;
         $cap2 = (int) request()->cap2;
         $cap3 = (int) request()->cap3;
-        $niveau = '-';
+        $niveau = '';
+        $error = 0;
         $poubelle = Poubelle::where('id', $p)->first();
         if ($poubelle) {
             if (in_array($cap1, [1, 0]) and in_array($cap2, [1, 0]) and in_array($cap3, [1, 0])) {
@@ -237,10 +238,16 @@ class DataController extends Controller
                     $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3, 'mustpay' => 1]); // niveau 2
                 } else {
                     $poubelle->update(['niveau' => null, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3, 'mustpay' => 0]); // erreur
+                    $error = 1;
                 }
+            } else {
+                $error = 1;
             }
+        } else {
+            $error = 1;
         }
 
-        return response($niveau);
+        echo ("#{$error}#");
+        // return response("$$niveau$");
     }
 }

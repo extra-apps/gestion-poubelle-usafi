@@ -1,15 +1,103 @@
-<div>
-<h2>What is Lorem Ipsum?</h2>
-<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
-<p>has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-</div>
-<div>
-<h2>Why do we use it?</h2>
-<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-</div>
+<p style="text-align: center;"><strong>CONTRAT DE GESTION DES&nbsp;DECHETS NON MENAGERS</strong></p>
+<p style="text-align: center;">&nbsp;&nbsp;</p>
+<h4>Article I<u>&nbsp;: Objet</u></h4>
+<p><strong>&nbsp;</strong></p>
+<p>Par le pr&eacute;sent contrat, le client confie &agrave; USAFI qui l'accepte, la collecte et le traitement de tout ou partie de ses d&eacute;chets assimilables aux d&eacute;chets m&eacute;nagers.</p>
+<h1>&nbsp;</h1>
+<h4>Article 2&nbsp;: Dur&eacute;e du contrat</h4>
+<p><strong>&nbsp;</strong></p>
+<p>Le pr&eacute;sent contrat est conclu &agrave; compter de sa signature pour l&rsquo;ann&eacute;e civile en cours (jusqu&rsquo;au 31 d&eacute;cembre). A l&rsquo;expiration de ce d&eacute;lai, le contrat est prorog&eacute; tacitement par p&eacute;riodes d&rsquo;un an.</p>
 <p>&nbsp;</p>
-<div>
-<h2>Where does it come from?</h2>
-<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
-</div>
+<h4>Article 3&nbsp;: Nature des d&eacute;chets pris en charge</h4>
+<p><strong>&nbsp;</strong></p>
+<p>Les d&eacute;chets pris en charge sont les d&eacute;chets assimil&eacute;s aux ordures m&eacute;nag&egrave;res, c'est-&agrave;-dire ceux qui peuvent &ecirc;tre &eacute;limin&eacute;s sans suj&eacute;tion technique particuli&egrave;re par le service de collecte, et sans risque pour l'environnement, ni pour le personnel de collecte en raison de leurs caract&eacute;ristiques et/ou des quantit&eacute;s collect&eacute;es.</p>
+<p>&nbsp;</p>
+<p><strong>Ils sont distingu&eacute;s en trois cat&eacute;gories :</strong></p>
+<p><strong>&nbsp;</strong></p>
+<ul>
+<li>Les d&eacute;chets m&eacute;nagers r&eacute;siduels assimilables tels que d&eacute;chets ordinaires de cuisine, d'entretien des locaux, &eacute;pluchures, balayures, d&eacute;tritus, d&eacute;s lors qu'ils ne rentrent pas dans les cat&eacute;gories des&nbsp;<strong>d&eacute;chets non collect&eacute;s</strong>&nbsp;notamment :</li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+<li>le verre apport&eacute; par le client aux colonnes &agrave; verre ;</li>
+<li>les d&eacute;chets verts (tontes, tailles de haies, feuilles mortes&hellip;), qui sont &agrave; d&eacute;poser en</li>
+</ul>
+<p>d&eacute;ch&egrave;terie ;</p>
+<p>&nbsp;les piles qui peuvent &ecirc;tre apport&eacute;es par l'usager en d&eacute;ch&egrave;terie ;</p>
+<p>&nbsp;les d&eacute;chets dangereux ou relevant d'une r&eacute;glementation sp&eacute;cifique&nbsp;<em>(d&eacute;chets toxiques, inflammables, corrosifs, radioactifs, explosifs ....) ;</em></p>
+<p>&nbsp;les d&eacute;chets anatomiques ou infectieux ;</p>
+<p>&nbsp;les d&eacute;blais, gravats, d&eacute;combres, ferrailles, cendres, m&acirc;chefers, mat&eacute;riels &eacute;lectroniques ; &nbsp;les huiles ;</p>
+<p>&nbsp;les d&eacute;chets encombrants tels que meubles, r&eacute;frig&eacute;rateurs, cuisini&egrave;res ; &nbsp;les D.E.E.E<strong>.&nbsp;</strong>(D&eacute;chets d&rsquo;Equipements Electriques et Electroniques) ; &nbsp;les mati&egrave;res f&eacute;cales ou rebutantes, ainsi que les cadavres d'animaux.</p>
+<ul>
+<li>Les d&eacute;chets recyclables consid&eacute;rant que le tri &agrave; la source est n&eacute;cessaire pour permettre d&rsquo;extraire au maximum les fractions &agrave; valoriser dans les d&eacute;chets &agrave; &eacute;liminer, et que USAFI, qui s'est engag&eacute; dans cette d&eacute;marche depuis 1996, demande &agrave; chacun de veiller au bon respect des consignes de tri en vigueur sur son territoire.</li>
+</ul>
+<p>Les d&eacute;chets &agrave; recycler sont les bouteilles et flacons en plastique, les emballages m&eacute;talliques, les briques alimentaires, les emballages en carton, les papiers et journaux-magazines</p>
+<ul>
+<li>Les cartons propres et secs d&eacute;barrass&eacute;s de toute autre mati&egrave;re.</li>
+</ul>
+<h4>Article 4&nbsp;: Obligations des parties</h4>
+<h4>4-1 Obligations de USAFI</h4>
+<p>Pendant la dur&eacute;e du contrat vis&eacute; &agrave; l'article 1.2 du r&egrave;glement de redevance sp&eacute;ciale, le SIRTOM de la R&eacute;gion Flers-Cond&eacute; s'engage &agrave; :</p>
+<ul>
+<li>fournir des bacs conformes &agrave; la r&eacute;glementation en vigueur. Dans le cas o&ugrave; le client fait le choix de faire collecter ses d&eacute;chets assimil&eacute;s par un prestataire priv&eacute; (et donc, ne signe pas de contrat avec le SIRTOM de la R&eacute;gion Flers-Cond&eacute;), aucun bac de collecte du SIRTOM de la R&eacute;gion Flers-Cond&eacute; ne lui sera attribu&eacute; ;</li>
+<li>assurer la collecte des d&eacute;chets du client, tels que d&eacute;finis &agrave; l'article 2. I du r&egrave;glement de redevance sp&eacute;ciale, et pr&eacute;sent&eacute;s &agrave; la collecte conform&eacute;ment aux prescriptions des arr&ecirc;t&eacute;s portant r&egrave;glement sanitaire pris par les autorit&eacute;s pr&eacute;fectorales et municipales comp&eacute;tentes, et conform&eacute;ment aux r&egrave;glements de gestion des d&eacute;chets m&eacute;nagers et de redevance sp&eacute;ciale approuv&eacute;s en Assembl&eacute;e G&eacute;n&eacute;rale du SIRTOM de la R&eacute;gion Flers-Cond&eacute;. Les modalit&eacute;s du service effectu&eacute; &agrave; ce titre par le SIRTOM de la R&eacute;gion Flers-Cond&eacute; (nombre de bacs mis &agrave; disposition et fr&eacute;quence de collecte) sont pr&eacute;cis&eacute;es dans le pr&eacute;sent contrat. Aucun d&eacute;chet pr&eacute;sent&eacute; &agrave; c&ocirc;t&eacute; du conteneur ne sera collect&eacute;. Les conteneurs devront &ecirc;tre pr&eacute;sent&eacute;s couvercle ferm&eacute; ;</li>
+<li>assurer l'&eacute;limination de ces d&eacute;chets, conform&eacute;ment &agrave; la r&eacute;glementation en vigueur et en particulier &agrave; l'obligation de valorisation pos&eacute;e par l'article L 541-24 alin&eacute;a 2 du Code de l'Environnement et l'article 2 du d&eacute;cret du 13 juillet 1994.</li>
+</ul>
+<p><strong>&nbsp;</strong></p>
+<p>L'obligation de r&eacute;alisation de ces prestations s'inscrit dans le cadre de l'ex&eacute;cution normale du service : une interruption provisoire de ce service, pour quelque cause que ce soit, n'ouvre pas droit &agrave; indemnit&eacute; au profit du client.</p>
+<p>&nbsp;</p>
+<h4>4-2 : Obligations du client</h4>
+<p><em><strong>&nbsp;</strong></em></p>
+<p>Pendant la dur&eacute;e du contrat, le client s'engage &agrave; :</p>
+<ul>
+<li>respecter les prescriptions des arr&ecirc;t&eacute;s portant r&egrave;glement sanitaire pris par les autorit&eacute;s pr&eacute;fectorales et municipales comp&eacute;tentes ainsi que celles &eacute;nonc&eacute;es dans le pr&eacute;sent r&egrave;glement de redevance sp&eacute;ciale, notamment concernant les modalit&eacute;s de pr&eacute;sentation des d&eacute;chets &agrave; collecter et la mise en &oelig;uvre des collectes s&eacute;lectives ;</li>
+<li>ne pas faire subir aux conteneurs mis &agrave; disposition par le SIRTOM de la R&eacute;gion Flers-Cond&eacute;, de d&eacute;gradation et d&eacute;formation massiques ou volumiques anormales dues au compactage des d&eacute;chets stock&eacute;s ou aux caract&eacute;ristiques des d&eacute;chets stock&eacute;s (liquides, graisses). Tout dommage r&eacute;sultant d&rsquo;une utilisation non conforme aux prescriptions du fabricant ou aux recommandations du SIRTOM entrainera une obligation de r&eacute;paration &agrave; la charge de l&rsquo;usager redevable ;</li>
+<li>maintenir les bacs fournis par le SIRTOM en bon &eacute;tat et notamment assurer p&eacute;riodiquement leur lavage et leur d&eacute;sinfection ;</li>
+<li>s'acquitter de la Redevance Sp&eacute;ciale selon les modalit&eacute;s fix&eacute;es &agrave; l'article 5.3. du r&egrave;glement de redevance sp&eacute;ciale ;</li>
+<li>fournir, sur demande du SIRTOM de la R&eacute;gion Flers-Cond&eacute;, tous documents ou informations n&eacute;cessaires au recouvrement de la Redevance sp&eacute;ciale (notamment le n&deg; de S1REN, l'avis d'imposition de Taxe Fonci&egrave;re sur lequel figure le montant de la TEOM) ;</li>
+<li>avertir le SIRTOM de la R&eacute;gion Flers-Cond&eacute; de tout changement pouvant intervenir</li>
+</ul>
+<p>(changement d'adresse, de propri&eacute;taire, de g&eacute;rant, fin d'activit&eacute;, etc...) ;</p>
+<ul>
+<li>pr&eacute;venir le SIRTOM en cas de vol, d&eacute;gradation du bac ou tout autre dysfonctionnement du service.</li>
+</ul>
+<p><strong>&nbsp;</strong></p>
+<h4>Article 5&nbsp;: Evaluation des volumes collect&eacute;s et r&eacute;visions des contrats &nbsp;</h4>
+<p>L'&eacute;valuation des volumes collect&eacute;s, servant de base au calcul de la r&eacute;mun&eacute;ration USAFI et r&eacute;alis&eacute;e en accord avec le client, figure en annexe.</p>
+<p>&nbsp;</p>
+<p>Dans le cas o&ugrave; le volume de d&eacute;chets d&eacute;pos&eacute;s par le client &eacute;voluerait en plus ou en moins du volume contractualis&eacute;, l'&eacute;valuation ci-dessus sera r&eacute;actualis&eacute;e d'un commun accord entre USAFI et le client.</p>
+<p>&nbsp;</p>
+<p>Toute r&eacute;actualisation donnera syst&eacute;matiquement lieu &agrave; la signature d'un avenant au pr&eacute;sent contrat. Les avenants concernant la modification du nombre et du volume des bacs sont limit&eacute;s &agrave; un (1) par an.</p>
+<p>Cette r&eacute;vision ne prendra effet que le premier jour du mois suivant la date de signature.</p>
+<p>&nbsp;</p>
+<h4>Article 6&nbsp;: Montant de la redevance et modalit&eacute;s de r&egrave;glement</h4>
+<h4>6-1 : Montant de la redevance</h4>
+<p>La redevance due par le client est calcul&eacute;e en fonction des &eacute;valuations de volume d&eacute;finis en annexe.</p>
+<p>Le montant d&ucirc; par le client correspond &agrave; la diff&eacute;rence entre le montant de la Taxe d'Enl&egrave;vement des Ordures M&eacute;nag&egrave;res (TEOM) &eacute;ventuellement acquitt&eacute;e par le client, et celui de la Redevance Sp&eacute;ciale lorsque celui-ci lui est sup&eacute;rieur.</p>
+<p>Le client a la charge de faire parvenir USAFI, au plus tard le 30 octobre de chaque ann&eacute;e et sans que cela lui soit rappel&eacute;, le justificatif du montant de la TEOM qu'il a acquitt&eacute; l'ann&eacute;e pr&eacute;c&eacute;dente. A d&eacute;faut, il s&rsquo;acquittera de la somme correspondant au montant total de la redevance sp&eacute;ciale.</p>
+<p>Le tarif unitaire de la redevance est fix&eacute; chaque ann&eacute;e par d&eacute;lib&eacute;ration du Comit&eacute; Syndical du SIRTOM de la R&eacute;gion Flers-Cond&eacute;.</p>
+<h4>6-2 : Modalit&eacute;s de r&egrave;glement</h4>
+<p>Un extrait de titre ex&eacute;cutoire sera &eacute;tabli trimestriellement par les Services du SIRTOM de la R&eacute;gion Flers-Cond&eacute; sur la base des stipulations contractuelles, et adress&eacute; au client.</p>
+<p>Celui-ci devra s'acquitter de la fraction de la redevance correspondante dans les caisses de Monsieur Le Tr&eacute;sorier Principal.</p>
+<p>Ce versement devra &ecirc;tre effectu&eacute; conform&eacute;ment aux r&egrave;gles de la comptabilit&eacute; publique.</p>
+<p>Les modifications de tarifs qui pourraient intervenir, par d&eacute;lib&eacute;ration du Comit&eacute; Syndical, en fonction de la r&eacute;glementation ou qui seraient li&eacute;es &agrave; l'augmentation du co&ucirc;t du service seront signifi&eacute;es au redevable par courrier.</p>
+<p>Sauf d&eacute;nonciation du contrat par le client, dans un d&eacute;lai de quinze (15) jours &agrave; compter de la date de r&eacute;ception du courrier du SIRTOM de la R&eacute;gion Flers-Cond&eacute;, ce tarif constituera la nouvelle base de facturation des services entre les parties.</p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>&nbsp;</strong></p>
+<p><strong><u>Article 7</u></strong><strong>&nbsp;: Contr&ocirc;les</strong></p>
+<p>USAFI r&eacute;alisera des contr&ocirc;les afin de v&eacute;rifier l'application des termes du contrat.</p>
+<h4>Article 8&nbsp;: R&eacute;siliation - Sanctions</h4>
+<h4>8-1: R&eacute;siliation</h4>
+<p>Les conventions peuvent &ecirc;tre r&eacute;sili&eacute;es &agrave; tout moment par le client, par lettre recommand&eacute;e avec accus&eacute; de r&eacute;ception, avec un pr&eacute;avis d&rsquo;un mois. Toutefois, pour des raisons techniques, la facturation sera arr&ecirc;t&eacute;e au dernier jour du mois de la date de r&eacute;siliation.</p>
+<h4>8-2 : Sanctions</h4>
+<p>Le SIRTOM de la R&eacute;gion Flers-Cond&eacute; peut mettre fin &agrave; la convention pour tout motif d'int&eacute;r&ecirc;t g&eacute;n&eacute;ral.</p>
+<p>En cas d'inex&eacute;cution par le client de ses obligations, et apr&egrave;s mise en demeure rest&eacute;e sans effet dans un d&eacute;lai de quinze (15) jours, la convention sera r&eacute;sili&eacute;e de plein droit et les conteneurs mis &agrave; disposition du client, retir&eacute;s par un repr&eacute;sentant d&eacute;sign&eacute; du SIRTOM de la R&eacute;gion Flers-Cond&eacute;.</p>
+<p>Lors du retrait, tout bac contenant encore des d&eacute;chets et collect&eacute; &agrave; cette occasion sera factur&eacute; au client.&nbsp;</p>
+<p>La facturation sera arr&ecirc;t&eacute;e au dernier jour du mois de la date de r&eacute;siliation de la convention.</p>
+<p>A d&eacute;faut de restitution des bacs, le client sera tenu de s&rsquo;acquitter d&rsquo;une p&eacute;nalit&eacute; calcul&eacute;e sur la base de la valeur des bacs conserv&eacute;s, selon les modalit&eacute;s suivantes : un quinzi&egrave;me de la valeur par jour de retard, la somme due le quinzi&egrave;me jour &eacute;tant &eacute;gale &agrave; la valeur totale des bacs conserv&eacute;s.</p>
+<p>&nbsp;</p>
+<h4>Article 9&nbsp;: Responsabilit&eacute; - Assurances</h4>
+<p>En application de l'article 1384 al. I du Code Civil, les bacs sont plac&eacute;s sous la garde et la responsabilit&eacute; de l'usager. En cons&eacute;quence, l'usager doit souscrire un contrat d'assurance couvrant tant sa responsabilit&eacute; civile au titre des mat&eacute;riels mis &agrave; sa disposition, que les dommages pouvant &ecirc;tre encourus par les dits mat&eacute;riels.</p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>&nbsp;</strong></p>
+<p>&nbsp;</p>
