@@ -44,8 +44,38 @@
                 div.find('i').removeClass("fa-eye-slash").addClass("fa-eye");
             }
         });
+
+        $('#f-com').submit(function() {
+            event.preventDefault();
+            var form = $(this);
+            var btn = $(':submit', form)
+            btn.find('span').removeClass().addClass('fa fa-spinner fa-spin');
+            var data = $(form).serialize();
+            $(':input', form).attr('disabled', true);
+            var rep = $('#rep', form);
+            rep.slideUp();
+
+            $.ajax({
+                url: '{{ route('app.commentaire') }}',
+                type: 'post',
+                data: data + '&_token={{ csrf_token() }}',
+                success: function(r) {
+                    btn.find('span').removeClass();
+                    $(':input', form).attr('disabled', false);
+                    form[0].reset();
+                    rep.removeClass().addClass('alert alert-success').html(
+                            "Merci d'avoir laisser votre commentaire.")
+                        .slideDown();
+                },
+                error: function(r) {
+                    btn.find('span').removeClass();
+                    $(':input', form).attr('disabled', false);
+                    alert("Echec reseau, actualisez cette page");
+                }
+            });
+        });
     })
-    
+
 
     // _token: '{{ csrf_token() }}'
 </script>

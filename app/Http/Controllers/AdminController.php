@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commentaire;
 use App\Models\Concession;
 use App\Models\Config;
 use App\Models\Evacuation;
@@ -130,5 +131,10 @@ class AdminController extends Controller
         $devise = @$conf->devise;
         $poubelles = Poubelle::orderBy('id', 'desc')->get();
         return view('admin.config', compact('compte', 'niveau1', 'niveau2', 'niveau3', 'devise', 'poubelles'));
+    }
+
+    public function commentaire() {
+        $commentaires = Commentaire::orderBy('id', 'desc')->get();
+        return view('admin.commentaire', compact('commentaires'));
     }
 }

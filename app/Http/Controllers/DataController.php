@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aevacuer;
+use App\Models\Commentaire;
 use App\Models\Config;
 use App\Models\Evacuateur;
 use App\Models\Paiement;
@@ -249,5 +250,12 @@ class DataController extends Controller
 
         echo ("#{$error}#");
         // return response("$$niveau$");
+    }
+
+    public function commentaire()
+    {
+        $data = request()->all();
+        $data['users_id'] = auth()->user()->id;
+        Commentaire::create($data);
     }
 }

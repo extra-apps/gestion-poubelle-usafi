@@ -41,6 +41,10 @@
                     <a href="{{ route('admin.config') }}">
                         <i class="fa fa-cog"></i>Configuration</a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.commentaire') }}">
+                        <i class="fas fa-comment"></i>Commentaire</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -79,6 +83,10 @@
                 <li>
                     <a href="{{ route('admin.config') }}">
                         <i class="fa fa-cog"></i>Configuration</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.commentaire') }}">
+                        <i class="fas fa-comment"></i>Commentaire</a>
                 </li>
             </ul>
         </nav>

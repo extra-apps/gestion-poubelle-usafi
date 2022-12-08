@@ -21,6 +21,10 @@
                     <a href="{{ route('client.accueil') }}">
                         <i class="fas fa-chart-bar"></i>Accueil</a>
                 </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#com">
+                        <i class="fas fa-comment"></i> Commentaire</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -40,7 +44,45 @@
                     <a href="{{ route('client.accueil') }}">
                         <i class="fas fa-chart-bar"></i>Accueil</a>
                 </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#com">
+                        <i class="fas fa-comment"></i> Commentaire</a>
+                </li>
             </ul>
         </nav>
     </div>
 </aside>
+<div class="modal fade" id="com" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="text-white">Laisser un commentaire</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="f-com">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Sujet</label>
+                        <input name="sujet" required class="form-control" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Commentaire</label>
+                        <textarea name="commentaire" id="" cols="30" rows="10" class="form-control" maxlength="500"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div id="rep"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-outline-info">
+                        <span></span>
+                        Envoyer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

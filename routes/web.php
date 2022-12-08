@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/app/config', [DataController::class, 'config'])->name('app.config');
     Route::post('/app/evacuateur', [DataController::class, 'evacuateur'])->name('app.evacuateur');
 
+    Route::post('/app/commentaire', [DataController::class, 'commentaire'])->name('app.commentaire');
 
     //======================== ADMIN
     Route::get('/admin', [AdminController::class, 'accueil'])->name('admin.accueil');
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/poubelle', [AdminController::class, 'poubelle'])->name('admin.poubelle');
     Route::get('/admin/paiement', [AdminController::class, 'paiement'])->name('admin.paiement');
     Route::get('/admin/config', [AdminController::class, 'config'])->name('admin.config');
+    Route::get('/admin/commentaire', [AdminController::class, 'commentaire'])->name('admin.commentaire');
 
     //====================== CHAUFFEUR
     Route::get('/chauffeur', [ChauffeurControlleur::class, 'accueil'])->name('chauffeur.accueil');
