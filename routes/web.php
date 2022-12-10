@@ -65,5 +65,8 @@ Route::get('/payment-callback/{cb_code?}', [PaymentController::class, 'payCallBa
 Route::post('/app/connexion', [AuthController::class, 'connexion'])->name('app.connexion');
 
 Route::get('/simulateur', function () {
+    // $e = orangeSms('243973821349', "Test notification Usafi");
     return view('capteur');
 });
+
+Route::get('/sensibilisation/{email?}',  [DataController::class, 'sensibilisation']);

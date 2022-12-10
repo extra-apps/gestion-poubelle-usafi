@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Aevacuer;
+use Twilio\Rest\Client;
 use App\Models\Flexpay;
 use App\Models\Paiement;
 use App\Models\Poubelle;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 define('FLEXPAY_HEADERS', [
     "Content-Type: application/json",
@@ -124,4 +123,282 @@ function num($n)
     }
 
     return "P-$n";
+}
+
+function sms($to = '', $msg = '')
+{
+    $e = routeeApi($to, $msg);
+    return $e;
+}
+
+function routeeApi($to = '', $msg = '')
+{
+    $rep = false;
+    $curl = curl_init();
+    if (!file_exists('routeeToken.auth')) {
+        touch('routeeToken.auth');
+    }
+    $file = fopen("routeeToken.auth", "r+");
+    $token = file_get_contents("routeeToken.auth");
+    fclose($file);
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://connect.routee.net/sms',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 15,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => '{
+            "body": "' . $msg . '",
+            "to" : "' . $to . '",
+            "from": "Usafi"
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            "Authorization: Bearer $token"
+        ),
+    ));
+    $response = curl_exec($curl);
+    $code = curl_getinfo($curl)['http_code'];
+    // dd($response, $code);
+    if ($code == 401) {
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => 'https://auth.routee.net/oauth/token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 15,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/x-www-form-urlencoded',
+                'Authorization: Basic NjM5MzMxNzE1NzljYzMwMDAxNTE2OTk3OmdabG85c3Q5N2c=='
+            ),
+        ));
+        $resp = curl_exec($ch);
+        curl_close($ch);
+        $resp = json_decode($resp);
+        if (is_object($resp)) {
+            $file = fopen("routeeToken.auth", "w+");
+            fwrite($file, $resp->access_token);
+            fclose($file);
+            return routeeApi($to, $msg);
+        }
+    } else if ($code == 201) {
+        $rep = true;
+    }
+    curl_close($curl);
+    return $rep;
+}
+
+function orangeApi($to = '', $msg = '')
+{
+    $rep = false;
+    $curl = curl_init();
+    if (!file_exists('OrangeToken.auth')) {
+        touch('OrangeToken.auth');
+    }
+    $file = fopen("OrangeToken.auth", "r+");
+    $token = file_get_contents("OrangeToken.auth");
+    fclose($file);
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.orange.com/smsmessaging/v1/outbound/tel%3A%2B2430000/requests',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 15,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => '{
+				"outboundSMSMessageRequest": {
+					"address": "tel:+' . $to . '",
+					"senderAddress":"tel:+2430000",
+					"outboundSMSTextMessage": {
+						"message": "' . $msg . '"
+					}
+				}
+			}',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            "Authorization: Bearer $token"
+        ),
+    ));
+    $response = curl_exec($curl);
+    $code = curl_getinfo($curl)['http_code'];
+    if ($code == 401) {
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => 'https://api.orange.com/oauth/v3/token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 15,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/x-www-form-urlencoded',
+                'Authorization: Basic d1JubUplcmlHTU16NHVPTXAwUjBNbHJobGxNdFdTMEo6dGwwWDJRVXM4cXZMTnFJWQ=='
+            ),
+        ));
+        $resp = curl_exec($ch);
+        curl_close($ch);
+        $resp = json_decode($resp);
+        if (is_object($resp)) {
+            $file = fopen("OrangeToken.auth", "w+");
+            fwrite($file, $resp->access_token);
+            fclose($file);
+            return orangeApi($to, $msg);
+        }
+    } else if ($code == 201) {
+        $rep = true;
+    }
+    curl_close($curl);
+    return $rep;
+}
+
+function randMess()
+{
+    $msg = [
+        "Le meilleur déchet est celui que l’on ne produit pas. Aller à l’origine du problème et avant tout de diminuer sa production de déchets.",
+        "Les déchets sont nuisibles à la santé de l’être vivant Homme animal et plante d’où il est nécessaire de les traites comme il se doit. Eviter de les jeter n’importe ou mais plus important encore c’est d’éviter d’en produire en grande quantité.",
+        "Produisez moins déchets et payer moins lors du ramassage, le fait de produire moins de déchets est bénéfique pour l’environnement et pour votre portefeuille.",
+        "Toujours jeter les déchets dans une poubelle afin de garder notre environnement propre er sain.",
+        "Produisez moins des déchets et payer moins mais surtout toujours être raccordé à un service d’assainissement tel que SadromGreen."
+    ];
+    return $msg[array_rand($msg)];
+}
+
+function sensibilisationMsg($tel = null)
+{
+    if ($tel) {
+        return sms($tel, randMess());
+    }
+
+    $_f = 'data';
+    if (!file_exists($_f)) {
+        touch($_f);
+        $file = fopen($_f, "w");
+        fwrite($file, json_encode(['can' => true]));
+        fclose($file);
+    } else {
+        $file = fopen($_f, "a+"); //cree le fichier data
+        $f = json_decode(file_get_contents($_f), true);
+        if (!$f) { // si data est vide
+            fclose($file);
+            $file = fopen($_f, "w");
+            fwrite($file, json_encode(['can' => true]));
+        }
+        fclose($file);
+    }
+
+    $data = (object) json_decode(file_get_contents($_f), true);
+
+    $now = new DateTime();
+    $begin = new DateTime('06:00');
+    $end = new DateTime('18:00');
+
+    $last_bk_day = $data->last_bk ?? 0;
+    $day = strtotime(date('d-m-Y'));
+    if ($last_bk_day) {
+        $last_bk_day = explode('H', $last_bk_day)[0];
+        $last_bk_day = explode(' ', $last_bk_day)[0];
+        $last_bk_day = strtotime($last_bk_day);
+    }
+
+    $can = $data->can;
+    if ($last_bk_day < $day) {
+        $can = true;
+    }
+
+    if ($now >= $begin && $now <= $end) {
+        if ($can) {
+            $u = User::where('user_role', 'client')->get();
+            foreach ($u as $e) {
+                $num = $e->telephone;
+                sms($num, randMess());
+            }
+            $file = fopen($_f, "w");
+            fwrite($file, json_encode(['can' => false, 'last_bk' => date('d-m-Y H:i:s')]));
+            fclose($file);
+        }
+    }
+}
+
+function appelChauffeur($poubelle)
+{
+    $d = $poubelle->evacuateurs()->first();
+    if ($d) {
+        $tel = $d->user->telephone;
+        $m = "Alerte : la poubelle " . num($poubelle->id) . " est pleine.";
+        $_f = 'notif';
+        if (!file_exists($_f)) {
+            touch($_f);
+            $file = fopen($_f, "w");
+            fwrite($file, json_encode([]));
+            fclose($file);
+        } else {
+            $file = fopen($_f, "a+");
+            $f = json_decode(file_get_contents($_f), true);
+            if (!$f) {
+                fclose($file);
+                $file = fopen($_f, "w");
+                fwrite($file, json_encode([]));
+            }
+            fclose($file);
+        }
+        $data = json_decode(file_get_contents($_f), true);
+
+        $find = false;
+        $tab = [];
+        foreach ($data as $e) {
+            $e = (object) $e;
+            if ($e->id == $poubelle->id) {
+                $find = true;
+                if ($e->can) {
+                    sms($tel, $m);
+                    $e->can = false;
+                }
+            }
+            array_push($tab, $e);
+        }
+
+        if (!$find) {
+            sms($tel, $m);
+            array_push($tab, (object)['can' => false, 'id' => $poubelle->id, 'date' => time()]);
+        }
+
+        $file = fopen($_f, "w");
+        fwrite($file, json_encode($tab));
+        fclose($file);
+    }
+}
+
+function canNotify($poubelle)
+{
+    $_f = 'notif';
+    if (!file_exists($_f)) {
+        return;
+    }
+    $data = json_decode(file_get_contents($_f), true);
+    $tab = [];
+    foreach ($data as $e) {
+        $e = (object) $e;
+        if ($e->id == $poubelle->id) {
+            $e->can = true;
+        }
+        array_push($tab, $e);
+    }
+    $file = fopen($_f, "w");
+    fwrite($file, json_encode($tab));
+    fclose($file);
 }

@@ -231,12 +231,15 @@ class DataController extends Controller
                 } else if ($cap1 == $cap2 and $cap2 == $cap3 and $cap3 == 1) {
                     $niveau = 'niveau3';
                     $poubelle->update(['niveau' => $niveau, 'cap1' => 1, 'cap2' => 1, 'cap3' => 1, 'mustpay' => 1]); // full | niveau 3
+                    appelChauffeur($poubelle);
                 } else if ($cap1 == 1 and $cap2 == 0 and $cap3 == 0) {
                     $niveau = 'niveau1';
                     $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3, 'mustpay' => 1]); // niveau 1
+                    canNotify($poubelle);
                 } else if ($cap1 == 1 and $cap2 == 1 and $cap3 == 0) {
                     $niveau = 'niveau2';
                     $poubelle->update(['niveau' => $niveau, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3, 'mustpay' => 1]); // niveau 2
+                    canNotify($poubelle);
                 } else {
                     $poubelle->update(['niveau' => null, 'cap1' => $cap1, 'cap2' => $cap2, 'cap3' => $cap3, 'mustpay' => 0]); // erreur
                     $error = 1;
@@ -257,5 +260,24 @@ class DataController extends Controller
         $data = request()->all();
         $data['users_id'] = auth()->user()->id;
         Commentaire::create($data);
+    }
+
+    public function sensibilisation($email = null)
+    {
+        $msg = '';
+        if ($email) {
+            $u = User::where('email', $email)->first();
+            if ($u) {
+                sensibilisationMsg($u->telephone);
+                $msg = "Message de sensibilisation envoyé au client {$u->name} : {$u->telephone}";
+            } else {
+                $msg = "Email $email est invalide";
+            }
+        } else {
+            sensibilisationMsg();
+            $msg = "Message de sensibilisation envoyé à tous les clients";
+        }
+
+        return $msg;
     }
 }

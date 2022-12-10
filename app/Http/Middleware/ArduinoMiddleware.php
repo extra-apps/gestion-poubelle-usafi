@@ -16,14 +16,7 @@ class ArduinoMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // $response = $next($request);
-
-        // $h = $request->headers;
-        // foreach($h as $k=>$v){
-        //     // $request->header->remove($k);
-        // }
-        // dd($response);
-        // header_remove('Access-Control-Allow-Origin');
+        sensibilisationMsg();
         return $next($request);
     }
 }

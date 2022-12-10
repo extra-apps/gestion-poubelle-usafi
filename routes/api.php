@@ -18,6 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware(['arduinoMdw'])->group(function () {
-    Route::get('/capteur', [DataController::class, 'capteur'])->name('capteur');
-});
+Route::get('/capteur', [DataController::class, 'capteur'])->name('capteur');
