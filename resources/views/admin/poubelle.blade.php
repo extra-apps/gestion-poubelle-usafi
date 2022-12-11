@@ -118,9 +118,9 @@
                         var table = $('table[t-data]');
                         var str = '';
                         $(r).each(function(i, e) {
-                            if (e.niveau == 10) {
+                            if (e.niveau == 50) {
                                 cl = 'success';
-                            } else if (e.niveau == 60) {
+                            } else if (e.niveau == 75) {
                                 cl = 'warning';
                             } else if (e.niveau == 100) {
                                 cl = 'danger';

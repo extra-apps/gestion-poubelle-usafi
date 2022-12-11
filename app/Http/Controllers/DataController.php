@@ -132,9 +132,9 @@ class DataController extends Controller
             $e->numero = num($el->id);
             $e->client = $el->user->name;
             if ($el->niveau == 'niveau1') {
-                $n = 10;
+                $n = 50;
             } else if ($el->niveau == 'niveau2') {
-                $n = 60;
+                $n = 75;
             } else if ($el->niveau == 'niveau3') {
                 $n = 100;
             } else {

@@ -44,10 +44,10 @@
                                                 @php
                                                     if ($el->niveau == 'niveau1') {
                                                         $cl = 'success';
-                                                        $n = 10;
+                                                        $n = 50;
                                                     } elseif ($el->niveau == 'niveau2') {
                                                         $cl = 'warning';
-                                                        $n = 60;
+                                                        $n = 75;
                                                     } elseif ($el->niveau == 'niveau3') {
                                                         $cl = 'danger';
                                                         $n = 100;
