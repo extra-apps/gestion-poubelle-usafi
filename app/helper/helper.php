@@ -283,7 +283,7 @@ function sensibilisationMsg($tel = null)
         return sms($tel, randMess());
     }
 
-    $_f = 'data';
+    $_f = 'datafile';
     if (!file_exists($_f)) {
         touch($_f);
         $file = fopen($_f, "w");
