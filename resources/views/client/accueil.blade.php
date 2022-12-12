@@ -36,7 +36,6 @@
                                                 <th>N° Poubelle</th>
                                                 <th>Taille</th>
                                                 <th>Niveau déchets</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -70,12 +69,6 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <a href="{{ route('client.paiement-poubelle', ['item' => $el->id]) }}"
-                                                            class="btn btn-outline-info">
-                                                            <i class="fa fa-dollar"></i> Payer l'évacuation
-                                                        </a>
-                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -101,17 +94,63 @@
                                             <tr>
                                                 <th></th>
                                                 <th>N° Poubelle</th>
+                                                <th>Niveau déchets</th>
                                                 <th>Montant</th>
                                                 <th>Date</th>
+                                                <th>Etat paiement</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $m=1;
+                                            @endphp
                                             @foreach ($paiements as $el)
+                                                @php
+                                                    if ($el->niveau == 'niveau1') {
+                                                        $cl = 'success';
+                                                        $n = 50;
+                                                    } elseif ($el->niveau == 'niveau2') {
+                                                        $cl = 'warning';
+                                                        $n = 75;
+                                                    } elseif ($el->niveau == 'niveau3') {
+                                                        $cl = 'danger';
+                                                        $n = 100;
+                                                    } else {
+                                                        $cl = '';
+                                                        $n = 0;
+                                                    }
+                                                @endphp
                                                 <tr>
-                                                    <td>{{ $n++ }}</td>
+                                                    <td>{{ $m++ }}</td>
                                                     <td>{{ num($el->poubelle->id) }}</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-{{ $cl }}"
+                                                                role="progressbar" style="width: {{ $n }}%"
+                                                                aria-valuenow="{{ $n }}" aria-valuemin="0"
+                                                                aria-valuemax="100">
+                                                                {{ $n }}%
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     <td>{{ "$el->montant $el->devise" }}</td>
                                                     <td>{{ $el->date->format('d-m-Y H:i:s') }}</td>
+                                                    <td class="text-center">
+                                                        @if ($el->paie == 1)
+                                                            <span class="badge badge-success"><i class="fa fa-check-circle"></i> PAYE</span>
+                                                        @else
+                                                            <span class="badge badge-danger"><i class="fa fa-times-circle"></i> NON PAYE</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($el->paie == 0)
+                                                            <a href="{{ route('client.paiement-poubelle', ['item' => $el->id]) }}"
+                                                                class="btn btn-outline-info">
+                                                                <i class="fa fa-dollar"></i> Payer l'évacuation
+                                                            </a>
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

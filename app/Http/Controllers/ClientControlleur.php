@@ -39,16 +39,18 @@ class ClientControlleur extends Controller
     {
         $item = request()->item;
         if ($item) {
-            $poubelle = Poubelle::where(['id' => $item, 'users_id' => auth()->user()->id])->first();
-            if ($poubelle) {
+            $paiement = Paiement::where(['id' => $item, 'paie' => 0])->first();
+            if ($paiement) {
+                $poubelle = $paiement->poubelle;
+                if ($poubelle->users_id == auth()->user()->id) {
+                    $config = Config::first();
+                    $config = @json_decode($config->config);
+                    $niveau = $paiement->niveau;
 
-                $config = Config::first();
-                $config = @json_decode($config->config);
-                $niveau = $poubelle->niveau;
-
-                $montant = @$config->$niveau;
-                $devise = @$config->devise;
-                return view('client.paiement_poubelle', compact('poubelle', 'montant', 'devise', 'niveau'));
+                    $montant = @$config->$niveau;
+                    $devise = @$config->devise;
+                    return view('client.paiement_poubelle', compact('poubelle', 'montant', 'devise', 'niveau', 'paiement'));
+                }
             }
         }
 

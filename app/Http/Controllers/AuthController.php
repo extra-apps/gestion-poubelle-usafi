@@ -12,7 +12,6 @@ class AuthController extends Controller
 {
     public function login()
     {
-        completeFlexpayTrans();
         return view('login');
     }
 

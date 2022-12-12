@@ -34,6 +34,7 @@
                                                 <th>Client</th>
                                                 <th>Niveau déchets</th>
                                                 <th>Montant</th>
+                                                <th>Etat paiement</th>
                                                 <th>Date</th>
                                             </tr>
                                         </thead>
@@ -72,15 +73,22 @@
                         var table = $('table[t-data]');
                         var str = '';
                         $(r).each(function(i, e) {
-                            if (e.niveau == 10) {
+                            if (e.niveau == 50) {
                                 cl = 'success';
-                            } else if (e.niveau == 60) {
+                            } else if (e.niveau == 75) {
                                 cl = 'warning';
                             } else if (e.niveau == 100) {
                                 cl = 'danger';
                             } else {
                                 cl = '';
                             }
+
+                            if(e.paie == 1){
+                                etat=`<span class="badge badge-success"><i class="fa fa-check-circle"></i> PAYE</span>`;
+                            }else{
+                                etat=`<span class="badge badge-danger"><i class="fa fa-times-circle"></i> NON PAYE</span>`;
+                            }
+
                             str += `
                             <tr>
                                 <td>${i+1}</td>
@@ -94,6 +102,7 @@
                                     </div>
                                 </td>
                                 <td class='text-center'>${e.montant}</td>
+                                <td class='text-center'>${etat}</td>
                                 <td class='text-center'>${e.date}</td>
                             </tr>
                             `;

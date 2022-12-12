@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use App\Models\Evacuateur;
 use App\Models\Evacuation;
+use App\Models\Paiement;
 use App\Models\Poubelle;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -57,12 +59,19 @@ class ChauffeurControlleur extends Controller
             return response()->json(['success' => false, 'message' => 'poubelle ??']);
         }
 
-        if ($poub->canempty != 1) {
-            return response()->json(['success' => false, 'message' => 'Cette poubelle ne peut etre évacuer pour le moment.']);
+        if (empty($poub->niveau)) {
+            return response()->json(['success' => false, 'message' => 'Aucun niveau détécté dans la poubelle, impossible de l\'evacuer.']);
         }
 
         Evacuation::create(['date' => now('Africa/Lubumbashi'), 'poubelle_id' => $poub->id, 'users_id' => auth()->user()->id]);
-        $poub->update(['canempty' => 0]);
+        $niveau = @$poub->niveau;
+        $config = Config::first();
+        $config = @json_decode($config->config);
+        $montant = (float) @$config->$niveau;
+        $devise = @$config->devise;
+        Paiement::create(['date' => now('Africa/Lubumbashi'), 'poubelle_id' => $poub->id, 'paie' => 0, 'niveau' => $niveau, 'montant' => $montant, 'devise' => $devise]);
+        $poub->update(['cap1' => 0, 'cap2' => 0, 'cap3' => 0, 'niveau' => '',]);
+        // $poub->update(['canempty' => 0]);
         return response()->json(['success' => true, 'message' => "Vous venez d'enregistrer l'évacuation de la poubelle " . num($poub->id)]);
     }
 }

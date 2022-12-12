@@ -63,21 +63,26 @@ class PaymentController extends Controller
             $validator = Validator::make($attr, [
                 'telephone' => 'required|',
                 'type' => 'required|in:poubelle',
-                'poubelle_id' => 'required|exists:poubelle,id',
+                'paiement_id' => 'required|exists:paiement,id',
             ]);
             if ($validator->fails()) {
                 return ['success' => false, 'message' => implode(",", $validator->errors()->all())];
             }
             $data = $validator->validated();
-            $poubelle = Poubelle::where('id', request()->poubelle_id)->first();
-            $niveau = @$poubelle->niveau;
+            $paiement = Paiement::where('id', request()->paiement_id)->first();
+            $poubelle = $paiement->poubelle;
+            if ($poubelle->users_id != auth()->user()->id) {
+                abort(403);
+            }
+
+            $niveau = @$paiement->niveau;
             $config = Config::first();
             $config = @json_decode($config->config);
             $montant = (float) @$config->$niveau;
             $devise = @$config->devise;
 
-            if ($poubelle->mustpay == 0) {
-                return ['success' => false, 'message' => "Cette poubelle ne necessite pas le paiement pour le moment."];
+            if ($paiement->paie == 1) {
+                return ['success' => false, 'message' => "Cette poubelle ne necessite pas le paiement."];
             }
 
             if ($montant == 0) {
@@ -92,9 +97,10 @@ class PaymentController extends Controller
                 'devise' => $devise,
                 'montant' => $montant,
                 'telephone' => $telephone,
-                'users_id' => $user->id,
-                'poubelle_id' => request()->poubelle_id,
-                'niveau' => $poubelle->niveau
+                // 'users_id' => $user->id,
+                'paiement_id' => $paiement->id,
+                // 'poubelle_id' => request()->poubelle_id,
+                // 'niveau' => $poubelle->niveau
             ];
         }
         $rep = startFlexPay($devise, $montant, $telephone, $ref, $cb_code);

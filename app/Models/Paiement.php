@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float|null $montant
  * @property string|null $devise
  * @property string|null $niveau
+ * @property int|null $paie
  * 
  * @property Poubelle $poubelle
  *
@@ -30,7 +31,8 @@ class Paiement extends Model
 
 	protected $casts = [
 		'poubelle_id' => 'int',
-		'montant' => 'float'
+		'montant' => 'float',
+		'paie' => 'int'
 	];
 
 	protected $dates = [
@@ -42,7 +44,8 @@ class Paiement extends Model
 		'date',
 		'montant',
 		'devise',
-		'niveau'
+		'niveau',
+		'paie'
 	];
 
 	public function poubelle()

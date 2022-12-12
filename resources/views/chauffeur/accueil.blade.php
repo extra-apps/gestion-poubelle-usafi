@@ -207,13 +207,7 @@
                             } else {
                                 cl = '';
                             }
-
-                            var btn = '';
-                            if (e.canempty == 1) {
-                                btn = `<button numero='${e.numero}' title="Veuillez évacuer cette poubelle" value='${e.id}' class="btn btn-outline-danger valide">
-                                        <i class='fa fa-check-circle' ></i>
-                                    </button>`;
-                            }
+ 
                             str += `
                             <tr>
                                 <td>${i+1}</td>
@@ -228,7 +222,9 @@
                                     </div>
                                 </td>
                                 <td>
-                                    ${btn}
+                                    <button numero='${e.numero}' title="Veuillez évacuer cette poubelle" value='${e.id}' class="btn btn-outline-danger valide">
+                                        <i class='fa fa-check-circle' ></i>
+                                    </button>
                                 </td>
                             </tr>
                             `;

@@ -27,14 +27,13 @@
                             <div class="login-content rounded ">
                                 <div class="row">
                                     <div class="col-12 text-center">
-                                        <h6 class="text-danger">veuillez effectuer le payement pour permetre
-                                            l'évacuation de votre poubelle!</h6>
+                                        <h6 class="text-danger">veuillez effectuer le payement de l'évacuation de votre poubelle!</h6>
                                     </div>
                                     <div class="col-12">
                                         <div class="mt-3 jumbotron p-3 bg-light">
                                             <b>Paiement de la poubelle {{ num($poubelle->id) }}</b>
                                             <hr>
-                                            <b>Niveau actuel de la poubelle : <i>{{ $niveau }}</i></b> <br>
+                                            <b>Niveau de la poubelle : <i>{{ $niveau }}</i></b> <br>
                                             <b>Montant à payer : <i>{{ "$montant $devise" }}</i></b> <br>
                                             <hr>
                                             <small>Comment payer ? <br></small>
@@ -51,8 +50,8 @@
                                                 <div class="form-group mt-2">
                                                     <small class="text-muted">Telephone mobile</small>
                                                     <input type="hidden" name="type" value="poubelle">
-                                                    <input type="hidden" name="poubelle_id"
-                                                        value="{{ $poubelle->id }}">
+                                                    <input type="hidden" name="paiement_id"
+                                                        value="{{ $paiement->id }}">
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend bg-gray p-1">
                                                             <span class="input-group-text" id="basic-addon1">+243</span>
